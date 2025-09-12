@@ -42,8 +42,9 @@ import {
   atualizarMetricasDashboard,
 } from './modules/dashboard.js';
 import { initAutocompleteTema, inicializarAutocompleteTema } from './components/autocomplete.js';
-import { inicializarPomodoro } from './components/pomodoro.js';
 import { inicializarDuas } from './components/duas.js';
+import { gerarHeatmapSimples } from './components/heatmap.js';
+import { inicializarPomodoro } from './components/pomodoro.js';
 
 // =============================================================================
 // INICIALIZAÇÃO PRINCIPAL
@@ -101,8 +102,14 @@ async function inicializarAplicacao() {
         await carregarFragmentos();
         configurarEventosTabela(el.tbody, excluirFragmentoPorId, el);
 
-        // Dashboard (apenas na dashboard.html)
+        // Dashboard 
         atualizarTudo(el, fragmentosData);
+
+        // Heatmap
+        if (el.heatmapContainer) {
+          gerarHeatmapSimples(el.heatmapContainer, fragmentosData);
+        }
+        
       } else {
         console.warn("⚠️ Nenhum usuário logado, mostrando modal de nome.");
         document.getElementById("modal-nome")?.classList.add("ativo");
