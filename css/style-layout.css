@@ -67,8 +67,8 @@ nav a {
   margin-right: 6px;
 }
 .botao-pergaminho:hover {
-  transform: scale(1.2);
-  color: #d9903d;
+  transform: scale(1.02);
+  color: #faefe3;
 }
 /* Fallback para ícones (emoji caso SVG falhe) */
 .emoji-fallback {

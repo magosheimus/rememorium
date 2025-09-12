@@ -1,4 +1,3 @@
-cat > README.md << 'EOF'
 # Rememorium: Ars Medica Memorata
 
 📖 **Overview**  

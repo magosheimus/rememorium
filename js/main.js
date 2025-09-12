@@ -108,7 +108,7 @@ async function inicializarAplicacao() {
         await carregarFragmentos();
         configurarEventosTabela(el.tbody, excluirFragmentoPorId, el);
 
-        // Dashboard (apenas na index.html)
+        // Dashboard (apenas na dashboard.html)
         atualizarTudo(el, fragmentosData);
       } else {
         console.warn("⚠️ Nenhum usuário logado, mostrando modal de nome.");
@@ -248,7 +248,7 @@ export function atualizarTudo(el, dados) {
   renderTabela(dados, el.tbody);
   atualizarContadorFragmentosTotal?.();
 
-  if (window.location.pathname.includes("index.html")) {
+  if (window.location.pathname.includes("home.html")) {
     atualizarMetricasDashboard(
       dados, 
       el.contadorQuestoes, 

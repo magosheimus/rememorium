@@ -71,7 +71,7 @@ export function logout() {
                 boasVindas.textContent = "Até logo!";
             }
             setTimeout(() => {
-                window.location.href = "login.html";
+                window.location.href = "index.html";
             }, 800);
         })
         .catch((error) => {

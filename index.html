@@ -1,180 +1,419 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rememorium: Ars Medica Memorata</title>
+  <meta name="description" content="Acesse seu grimório de revisões no Rememorium e continue sua jornada médica com memória evocada.">
+  <title>Login - Rememorium</title>
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
   
-  <!-- Fontes -->
-  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English&display=swap" rel="stylesheet">
-  
-  <!-- Flatpickr CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <style>
+    /* ==============================
+       VARIÁVEIS DE CORES
+       ============================== */
+    :root {
+      --marrom-principal: #32281b;
+      --aura-instavel: #d9903d;
+      --aura-urgente: #c4554c;
+      --aura-consolidada: #8a9b5b;
+      --google-blue: #4285F4;
+      --google-blue-hover: #357ae8;
+    }
 
-  <!-- CSS Base -->
-  <link rel="stylesheet" href="./css/style-base.css">
-  <link rel="stylesheet" href="./css/style-layout.css">
-  <!-- CSS Componentes -->
-  <link rel="stylesheet" href="./css/style-forms.css">
-  <link rel="stylesheet" href="./css/style-tables.css">
-  <link rel="stylesheet" href="./css/style-components.css">
-  <link rel="stylesheet" href="./css/style-modals.css">
-  <!-- CSS Responsivo -->
-  <link rel="stylesheet" href="./css/style-responsive.css">
+    /* ==============================
+       RESET E BASE
+       ============================== */
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+      font-family: inherit; 
+    }
+    body {
+      font-family: 'IM Fell English', serif;
+      background: linear-gradient(135deg, #3d3022, #32281b);
+      color: #f6e7cd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 1rem;
+    }
+
+    /* ==============================
+       CONTAINER PRINCIPAL
+       ============================== */
+    .login-container {
+      background: #f9f2e3;
+      padding: 2rem;
+      border: 1.5px solid var(--aura-instavel);
+      border-radius: 14px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      font-weight: 400;
+    }
+
+    /* ==============================
+       TÍTULO
+       ============================== */
+    h1 {
+      font-size: 1.6rem;
+      color: var(--marrom-principal);
+      text-align: center;
+      font-weight: 550;
+      margin-bottom: 1rem;
+    }
+
+    /* ==============================
+       FORMULÁRIO
+       ============================== */
+    label {
+      display: block;
+      margin-bottom: 0.4rem;
+      color: var(--marrom-principal);
+      font-weight: 550;
+    }
+    input {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      border-radius: 8px;
+      border: 1.5px solid #c7a877;
+      background: #fffdf8;
+      font-size: 1rem;
+      margin-bottom: 1.2rem;
+    }
+    input::placeholder {
+      font-style: italic;
+      color: #b8a98c;
+    }
+
+    /* ==============================
+       BOTÕES
+       ============================== */
+    button {
+      width: 100%;
+      background: linear-gradient(135deg, #d3a876, #a96b3f);
+      color: #32281b;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      padding: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    button:hover {
+      background: linear-gradient(135deg, #e3bc90, #ba7646);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Botão Criar Conta */
+    #btn-criar-conta {
+      background: linear-gradient(135deg, #f8f3ea, #ddcdb3);
+    }
+    #btn-criar-conta:hover {
+      background: linear-gradient(135deg, #f7eee2, #e0ccb0);
+    }
+
+    /* Botão em loading */
+    .loading {
+      opacity: 0.7;
+      cursor: wait;
+    }
+
+    /* Layout dos botões lado a lado */
+    .botoes-login {
+      display: flex;
+      gap: 0.8rem;
+      justify-content: space-between;
+      margin-top: 1rem;
+    }
+    .botoes-login button {
+      flex: 1;
+    }
+
+    /* ==============================
+       LINKS
+       ============================== */
+    #link-redefinir {
+      display: block;
+      text-align: center;
+      margin-top: 0.8rem;
+      font-size: 0.9rem;
+      color: #a96b3f;
+      text-decoration: underline;
+      font-style: italic;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    #link-redefinir:hover {
+      color: #7f491f;
+    }
+
+    /* ==============================
+       BOTÃO GOOGLE
+       ============================== */
+    .botao-google {
+      margin-top: 1rem;
+      background: white;
+      color: #757575;
+      border: 1px solid #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      font-weight: 500;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .botao-google:hover {
+      background: #f8f8f8;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transform: translateY(-1px);
+      color: #4285F4;
+    }
+    .google-icon {
+      width: 18px;
+      height: 18px;
+      background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy43eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=') center no-repeat;
+    }
+
+    /* ==============================
+       DIVISOR
+       ============================== */
+    .divisor {
+      display: flex;
+      align-items: center;
+      margin: 1rem 0;
+      color: #6b5d3f;
+      font-size: 0.9rem;
+    }
+    .divisor::before,
+    .divisor::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background-color: #c7a877;
+    }
+    .divisor span {
+      padding: 0 1rem;
+    }
+
+    /* ==============================
+       MENSAGENS
+       ============================== */
+    .mensagem {
+      text-align: center;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      margin-bottom: -1rem;
+    }
+    .mensagem.erro { color: var(--aura-urgente); }
+    .mensagem.sucesso { color: var(--aura-consolidada); }
+
+    /* ==============================
+       RODAPÉ
+       ============================== */
+    .login-footer {
+      text-align: center;
+      margin-top: 3rem;
+      font-size: 1rem;
+      color: #6b5d3f;
+      font-style: italic;
+      letter-spacing: 0.3px;
+      opacity: 0;
+      animation: fadeIn 1.2s ease forwards;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+  </style>
 </head>
 <body>
-  <!-- Barra de Navegação -->
-  <nav>
-    <div class="logo" style="display: flex; align-items: center; gap: 1rem;">
-      <img src="assets/logo.png" alt="Logo Rememorium" class="logo"/>
+  <div class="login-container">
+    <h1>⟡ Entrar no Rememorium ⟡</h1>
+
+    <!-- Campos -->
+    <label for="email">Email</label>
+    <input type="email" id="email" placeholder="seu@email.com"/>
+    <label for="senha">Senha</label>
+    <input type="password" id="senha" placeholder="••••••••"/>
+
+    <!-- Botões principais -->
+    <div class="botoes-login">
+      <button id="btn-login" type="button" onclick="login()">Entrar</button>
+      <button id="btn-criar-conta" type="button">✦ Criar nova conta</button>
     </div>
-    <!-- Botão logout (mantido) -->
-    <a href="#" onclick="logout()" class="botao-sair">Logout</a>
-    <div class="nav-grupo">
-      <ul>
-        <li><a href="fragmentos.html">Página de Fragmentos</a></li>
-      </ul>
-    </div>
-  </nav>
 
-  <!-- Cabeçalho -->
-  <header>
-    <h1 class="titulo-principal">Re:memorium</h1>
-    <h2 class="titulo-secundario">Ars Medica Memorata</h2>
-  </header>
+    <!-- Link de redefinição -->
+    <a href="#" id="link-redefinir" onclick="redefinirSenha()">Esqueci minha senha</a>
 
-  <main>
-    <!-- Mensagem de boas-vindas -->
-    <section id="boas-vindas">
-      <p>Welcome back, Dr. Bint Sina. Your journey to mastery continues.</p>
-    </section>
+    <!-- Login Google -->
+    <div class="divisor"><span>ou</span></div>
+    <button id="btn-google" type="button" class="botao-google">
+      <span class="google-icon"></span>
+      Entrar com Google
+    </button>
 
-    <!-- Contador regressivo e inspiração -->
-    <section id="contador-inspiracao">
-      <div class="contagem-regressiva">
-        <h4>Contagem Regressiva - <span id="subtitulo-prova">Revalida 25-2</span></h4>
-        <div class="contador">
-          <span id="contador-dias" class="numero"></span><span class="dias">dias</span>
-        </div>
-      </div>
-      <div class="bloco-inspiracao">
-        <div class="dua-container">
-          <button class="navegar-dua" id="dua-anterior">&#8592;</button>
-          <div class="conteudo-dua">
-            <p class="arabe" id="texto-dua-arabe">رَبِّ زِدْنِي عِلْمًا</p>
-            <p class="transliteracao" id="texto-dua-transliteracao">Rabbi zidni ilma</p>
-            <p class="traducao" id="texto-dua-traducao">Ó meu Senhor, aumenta-me em conhecimento.</p>
-          </div>
-          <button class="navegar-dua" id="dua-proximo">&#8594;</button>
-        </div>
-      </div>
-    </section>
+    <!-- Mensagens dinâmicas -->
+    <div class="mensagem" id="mensagem" aria-live="polite"></div>
 
-    <!-- Painel principal -->
-    <section id="painel-principal">
-      <h3 class="titulo-decorativo">Registro da Mem<span class="fallback">ó</span>ria</h3>
-      <div class="blocos-principais">
-        <div class="bloco">
-          <h4>Questões Evocadas</h4>
-          <strong id="contador-questoes">0</strong>
-        </div>
-        <div class="bloco">
-          <h4>Eco da Performance</h4>
-          <strong id="eco-performance">0 %</strong>
-        </div>
-        <div class="bloco">
-          <h4>Última Evocação</h4>
-          <strong id="ultima-evocacao">-</strong>
-        </div>
-      </div>
-    </section>
+    <!-- Frases de rodapé -->
+    <div class="login-footer" id="frase-footer"></div>
+  </div>
 
-    <!-- Tabela de fragmentos -->
-    <section id="fragmentos">
-      <h3 class="titulo-decorativo">Fragmentos do Saber</h3>
-      <div class="tabela-frame">
-        <table id="fragmentos-table">
-          <colgroup>
-            <col style="width:42px">
-            <col>
-            <col style="width:130px">
-            <col style="width:100px">
-            <col style="width:100px">
-            <col style="width:100px">
-            <col style="width:100px">
-            <col style="width:220px">
-          </colgroup>
-          <thead>
-            <tr>
-              <th>H</th>
-              <th>Tema</th>
-              <th>Última Revisão</th>
-              <th>Eco Inicial</th>
-              <th>Eco Final</th>
-              <th>Confiança</th>
-              <th>Revisões</th>
-              <th class="col-hashtags">Hashtags</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- Heatmap -->
-    <section id="heatmap">
-      <h3 class="titulo-decorativo">Diário de Progresso</h3>
-      <div id="heatmap-container"></div>
-      <div id="heatmap-legend">
-        <div class="heatmap-legenda-item"><div class="heatmap-legenda-box questoes-0"></div> Nenhuma atividade</div>
-        <div class="heatmap-legenda-item"><div class="heatmap-legenda-box questoes-1"></div> 1-19 Questões</div>
-        <div class="heatmap-legenda-item"><div class="heatmap-legenda-box questoes-2"></div> 20-49 Questões</div>
-        <div class="heatmap-legenda-item"><div class="heatmap-legenda-box questoes-3"></div> 50-79 Questões</div>
-        <div class="heatmap-legenda-item"><div class="heatmap-legenda-box questoes-4"></div> 80-100+ Questões</div>
-      </div>
-    </section>
-
-    <!-- Log de revisões -->
-    <section id="log-section">
-      <h3 class="titulo-decorativo">Últimas Evocações</h3>
-      <div id="log-revisoes"></div>
-    </section>
-  </main>
-
-  <!-- Pomodoro -->
-  <footer id="pomodoro">
-    <div id="pomodoro-conteudo">
-      <button id="start-pomodoro" aria-label="Controle do Pomodoro">
-        <img src="assets/play-pomodoro.svg" alt="Iniciar/Pausar Pomodoro" />
-      </button>
-      <p>Pomodoro: <span id="pomodoro-timer">25:00</span></p>
-    </div>
-  </footer>
-
-  <!-- Dependência externa -->
-  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
-  <!-- Scripts da aplicação -->
+  <!-- Script de autenticação -->
   <script type="module">
-    import { inicializarDatePicker } from './js/modules/ui.js';
-    import { logout } from './js/modules/auth.js';
-    import './js/database.js';
-    import './js/utils.js';
-    import './js/main.js';
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { 
+      GoogleAuthProvider, signInWithPopup, getAuth,
+      signInWithEmailAndPassword, setPersistence, browserSessionPersistence,
+      createUserWithEmailAndPassword, sendPasswordResetEmail
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-    // ---- Carregar modal externo ----
-    (async () => {
-      const resp = await fetch('modal.html');
-      const html = await resp.text();
-      document.body.insertAdjacentHTML('beforeend', html);
+    // Configuração do Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyD4bYd2ftMKgpuhVQesgHoZ9pa2sYbqhqU",
+      authDomain: "rememorium-1e926.firebaseapp.com",
+      projectId: "rememorium-1e926",
+      storageBucket: "rememorium-1e926.appspot.com",
+      messagingSenderId: "747957308270",
+      appId: "1:747957308270:web:959f82a2978db950138f7f",
+      measurementId: "G-1088X2B8LE"
+    };
 
-      // Inicializar datepicker do modal, se existir
-      const input = document.getElementById('dataProvaInput');
-      if (input) inicializarDatePicker(input);
-    })();
+    // Inicialização
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    setPersistence(auth, browserSessionPersistence);
+    const provider = new GoogleAuthProvider();
 
-    // ---- Expor função de logout para o botão no HTML ----
-    window.logout = logout;
+    /** Mostrar mensagens */
+    function mostrarMensagem(texto, tipo) {
+      const msg = document.getElementById("mensagem");
+      msg.textContent = texto;
+      msg.className = `mensagem ${tipo}`;
+    }
+
+    /** Login com email/senha */
+    window.login = async () => {
+      const email = document.getElementById("email").value;
+      const senha = document.getElementById("senha").value;
+      const btn = document.getElementById("btn-login");
+
+      if (!email || !senha) {
+        mostrarMensagem("O pergaminho precisa ser completado antes da invocação", "erro");
+        return;
+      }
+
+      btn.textContent = "Invocando...";
+      btn.classList.add("loading");
+      btn.disabled = true;
+
+      try {
+        await signInWithEmailAndPassword(auth, email, senha);
+        mostrarMensagem("Selos verificados. Acessando seus arquivos arcanos...", "sucesso");
+        setTimeout(() => { window.location.href = "home.html"; }, 1500);
+      } catch (error) {
+        let mensagemErro = "Erro ao fazer login";
+        if (error.code === "auth/user-not-found") mensagemErro = "Usuário não encontrado";
+        else if (error.code === "auth/wrong-password") mensagemErro = "Palavra-passe não correspondente. Tente novamente.";
+        else if (error.code === "auth/invalid-email") mensagemErro = "Email inválido.";
+        else if (error.code === "auth/too-many-requests") mensagemErro = "Muitas tentativas fracassadas. Aguarde um momento.";
+        mostrarMensagem(mensagemErro, "erro");
+      } finally {
+        btn.textContent = "Entrar";
+        btn.classList.remove("loading");
+        btn.disabled = false;
+      }
+    };
+
+    /** Criar nova conta */
+    document.getElementById("btn-criar-conta").addEventListener("click", async () => {
+      const email = document.getElementById("email").value;
+      const senha = document.getElementById("senha").value;
+      const btn = document.getElementById("btn-criar-conta");
+
+      if (!email || !senha) {
+        mostrarMensagem("O oráculo não consegue ler campos vazios. Preencha os campos necessários.", "erro");
+        return;
+      }
+
+      btn.textContent = "Invocando...";
+      btn.classList.add("loading");
+      btn.disabled = true;
+
+      try {
+        await createUserWithEmailAndPassword(auth, email, senha);
+        mostrarMensagem("Grimório invocado com sucesso — que os registros se iniciem.", "sucesso");
+        setTimeout(() => { window.location.href = "home.html"; }, 1500);
+      } catch (error) {
+        let mensagemErro = "Erro ao criar conta";
+        if (error.code === "auth/email-already-in-use") mensagemErro = "Email já está em uso";
+        else if (error.code === "auth/weak-password") mensagemErro = "Senha muito fraca (mínimo 6 caracteres)";
+        else if (error.code === "auth/invalid-email") mensagemErro = "Email inválido";
+        mostrarMensagem(mensagemErro, "erro");
+      } finally {
+        btn.textContent = "✦ Criar nova conta";
+        btn.classList.remove("loading");
+        btn.disabled = false;
+      }
+    });
+
+    /** Login com Google */
+    document.getElementById("btn-google").addEventListener("click", async () => {
+      const btn = document.getElementById("btn-google");
+      btn.innerHTML = '<span class="google-icon"></span> Carregando...';
+      btn.disabled = true;
+
+      try {
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+        mostrarMensagem(`Saudações, ${user.displayName || "usuário"}. O grimório reconhece sua aura.`, "sucesso");
+        localStorage.setItem("nomeUsuario", user.displayName || "Guardião(a)");
+        setTimeout(() => { window.location.href = "home.html"; }, 1500);
+      } catch (error) {
+        let mensagemErro = "Erro ao fazer login com Google";
+        if (error.code === "auth/popup-closed-by-user") {
+          mensagemErro = "Invocação cancelada — o portal foi fechado.";
+        }
+        mostrarMensagem(mensagemErro, "erro");
+      } finally {
+        btn.innerHTML = '<span class="google-icon"></span> Entrar com Google';
+        btn.disabled = false;
+      }
+    });
+
+    /** Redefinir senha */
+    window.redefinirSenha = () => {
+      const email = document.getElementById("email").value;
+      if (!email) {
+        mostrarMensagem("Informe seu email para redefinir a senha", "erro");
+        return;
+      }
+      sendPasswordResetEmail(auth, email)
+        .then(() => {
+          mostrarMensagem("Pergaminho enviado! Verifique seu email.", "sucesso");
+        })
+        .catch((error) => {
+          mostrarMensagem("Erro ao enviar redefinição: " + error.message, "erro");
+        });
+    };
+
+    /** Atalho Enter para login */
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") login();
+    });
+
+    /** Frases do rodapé */
+    const frases = [
+      "Seu grimório de conhecimentos aguarda...",
+      "As páginas antigas sussurram seu nome...",
+      "O saber repousa à sua espera...",
+      "Volte a reescrever sua lenda...",
+      "A memória clama por evocação..."
+    ];
+    document.getElementById("frase-footer").textContent = frases[Math.floor(Math.random() * frases.length)];
   </script>
 </body>
 </html>
