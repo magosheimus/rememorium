@@ -9,7 +9,7 @@
  * =============================================================================
  */
 
-import { normalizarTexto } from '../utils';
+import { normalizarTexto } from '../utils.js';
 
 /**
  * Inicializa o autocomplete para um input de tema.
