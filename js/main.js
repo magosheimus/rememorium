@@ -107,6 +107,7 @@ async function inicializarAplicacao() {
 
         // Heatmap
         if (el.heatmapContainer) {
+          console.log("heatmap sendo gerado", fragmentosData);
           gerarHeatmapSimples(el.heatmapContainer, fragmentosData);
         }
         
