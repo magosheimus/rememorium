@@ -18,15 +18,9 @@ import {
   apagarTemaCurado,  
   obterConfigUsuario
 } from './database.js';
-import { abrirPainelPrincipal, normalizarTexto } from './utils.js';
+import { normalizarTexto } from './utils.js';
 
 // ------------------- IMPORTAÇÕES DOS MÓDULOS -------------------
-import { 
-  gerenciarUsuario,
-  fecharModalNome,
-  logout,
-  salvarNomeArcano
-} from './modules/auth.js';
 import { 
   carregarFragmentos, 
   todosOsFragmentos,
@@ -44,7 +38,6 @@ import {
   inicializarPaginacao
 } from './modules/ui.js';
 import {
-  inicializarDashboard,
   atualizarCountdown,
   atualizarMetricasDashboard,
 } from './modules/dashboard.js';
