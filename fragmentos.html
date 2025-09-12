@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rememorium: Fragmentos</title>
+  
+  <!-- Fontes -->
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English&display=swap" rel="stylesheet">
+  
+  <!-- Flatpickr CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+  <!-- CSS Base -->
+  <link rel="stylesheet" href="./css/style-base.css">
+  <link rel="stylesheet" href="./css/style-layout.css">
+  <!-- CSS Componentes -->
+  <link rel="stylesheet" href="./css/style-forms.css">
+  <link rel="stylesheet" href="./css/style-tables.css">
+  <link rel="stylesheet" href="./css/style-components.css">
+  <link rel="stylesheet" href="./css/style-modals.css">
+  <!-- CSS Responsivo -->
+  <link rel="stylesheet" href="./css/style-responsive.css">
+</head>
+<body>
+  <!-- Barra de Navegação -->
+  <nav>
+    <div class="logo" style="display: flex; align-items: center; gap: 1rem;">
+      <img src="assets/logo.png" alt="Logo Rememorium" class="logo"/>
+      <div>
+        <h1 class="titulo-principal" style="font-size: 1.4rem; font-weight: normal;">
+          <a href="index.html" style="text-decoration: none; color: inherit;">Re:memorium</a>
+        </h1>
+      </div>
+    </div>
+    
+    <div class="nav-grupo">
+      <div class="painel-icone">
+        <button class="botao-pergaminho" onclick="abrirPainelTemas()" title="Temas Curados">
+          <svg class="icone-pergaminho" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 20V4C5 2.89543 5.89543 2 7 2H17C18.1046 2 19 2.89543 19 4V20C19 21.1046 18.1046 22 17 22H7C5.89543 22 5 21.1046 5 20Z" fill="currentColor"/>
+            <path d="M7 2L5 4V20C5 21.1046 5.89543 22 7 22H17C18.1046 22 19 21.1046 19 20V4L17 2H7Z" fill="currentColor"/>
+            <path d="M9 7H15" stroke="#8B5A2B" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M9 11H15" stroke="#8B5A2B" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M9 15H13" stroke="#8B5A2B" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <span class="emoji-fallback">🧾</span>
+        </button>
+        <a> Lista de Temas </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Cabeçalho -->
+  <header>
+    <div class="eco-legenda">
+      <button class="eco-legenda-toggle" aria-expanded="false">ⓘ Como usar o Rememorium?</button>
+      <div class="eco-legenda-conteudo" aria-hidden="true">
+        <p>
+          ➺ O <strong>Rememorium</strong> é um sistema de revisão espaçada baseado em <u>estudo ativo</u>. 
+          Cada fragmento registrado deve conter:
+        </p>
+        <p>– <strong>Tema:</strong> o assunto estudado ou revisado.</p>
+        <p>– <strong>Data:</strong> quando realizou a revisão/estudo.</p>
+        <p>– 
+          <strong>Eco Inicial:</strong> seu desempenho <u>antes</u> da revisão.  
+          Aqui você pratica a <u>recordação ativa</u>, tentando lembrar do tema de memória ou resolvendo um pequeno bloco de questões 
+          (ex.: <code>7/10</code> → 7 acertos em 10 questões).
+        </p>
+        <p>– 
+          <strong>Método de Revisão:</strong> pode ser mental, em papel em branco ou com questões rápidas.
+        </p>
+        <p>– 
+          <strong>Eco Final:</strong> seu desempenho <u>após</u> reforçar o conteúdo — normalmente com um bloco maior de questões, 
+          depois de assistir uma videoaula, revisar caderno ou materiais (ex.: <code>8/12</code> → 8 acertos em 12 questões).
+        </p>
+        <p>– 
+          <strong>Confiança:</strong> o quanto você sente que o tema está fixo na memória (Baixa, Média ou Alta).
+        </p>
+        <p>– 
+          <strong>Hashtags:</strong> adicione manualmente palavras-chave relacionadas ao tema (ex.: <code>#cirurgia #clinica</code>).
+        </p>
+        <hr>
+        <p>
+          🔮 Após salvar, o <strong>Rememorium</strong> classifica cada tema automaticamente como:
+        </p>
+        <ul>
+          <li><strong style="color: #b33a2f;">Urgente</strong> → prioridade máxima, precisa revisar logo.</li>
+          <li><strong style="color: #c77f2f;">Instável</strong> → merece atenção em breve, não deixe acumular.</li>
+          <li><strong style="color: #6b8e23;">Consolidado</strong> → já está fixo, pode ser revisado em intervalos mais longos.</li>
+        </ul>
+      </div>
+    </div>
+    
+    <h2 class="titulo-fragmentos">Fragmentos do Saber</h2>
+    <h3 class="subtitulo-fragmentos">
+      Total: <span id="contador-fragmentos">0</span> fragmentos registrados
+    </h3>
+  </header>
+
+  <main>
+    <!-- Seção de novo fragmento -->
+    <section id="novo-fragmento">
+      <div class="bloco-formulario">
+        <h2 class="subtitulo-formulario">Adicionar Novo Fragmento:</h2>
+        <form id="form-fragmento" class="form-fragmento">
+          <div class="tema-wrapper">
+            <input id="tema-input" type="text" placeholder="Tema" autocomplete="off"/>
+            <div class="ac-dropdown"></div>
+          </div>
+          <input id="data-input" type="text" name="data" placeholder="Data Revisão" autocomplete="off" required/>
+          <input type="text" name="ecoInicial" placeholder="Eco Inicial" class="input-pequeno" autocomplete="off"/>
+          <input type="text" name="ecoFinal" placeholder="Eco Final" class="input-pequeno" autocomplete="off"/>
+          <div class="select-wrapper">
+            <div class="select-custom" id="select-confianca">
+              <span class="selected-option">Confiança</span>
+              <div class="arrow"></div>
+              <ul class="select-options">
+                <li data-value="Baixa">Baixa</li>
+                <li data-value="Média">Média</li>
+                <li data-value="Alta">Alta</li>
+              </ul>
+            </div>
+          </div>
+          
+          <input type="text" name="hashtag" placeholder="Hashtags" />
+          <button type="submit" class="btn-adicionar">✧</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Seção de tabela de fragmentos -->
+    <section id="fragmentos">
+      <h3 class="titulo-decorativo">Todos os Fragmentos</h3>
+      <div class="filtros">
+        <input type="text" id="filtro-fragmento" placeholder="Pesquisar tema ou hashtag..." />
+        <button id="filtrar-urgentes" title="Filtrar Urgentes">
+          <span class="rotulo-pequeno">filtrar urgentes</span>
+        </button>
+      </div>
+      <div class="tabela-frame">
+        <table id="fragmentos-table">
+          <colgroup>
+            <col style="width:42px">     <!-- R -->
+            <col>                        <!-- Tema -->
+            <col style="width:130px">    <!-- Última Revisão -->
+            <col style="width:100px;">   <!-- Eco Inicial -->
+            <col style="width:100px">    <!-- Eco Final -->
+            <col style="width:100px">    <!-- Confiança -->
+            <col style="width:100px">    <!-- Revisões -->
+            <col style="width:220px">    <!-- Hashtags -->
+          </colgroup>
+          <thead>
+            <tr>
+              <th>R</th>
+              <th>Tema</th>
+              <th>Última Revisão</th>
+              <th>Eco Inicial</th>
+              <th>Eco Final</th>
+              <th>Confiança</th>
+              <th>Revisões</th>
+              <th class="col-hashtags">Hashtags</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- preenchido automaticamente via JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Painel de gestão de temas curados -->
+    <section id="gerenciador-temas">
+      <aside id="painel-temas-curados" class="painel-temas" aria-hidden="true">
+        <header class="painel-topo">
+          <button class="botao-fechar" onclick="fecharPainelTemas()" title="Fechar">✕</button>
+          <h3>Lista de Temas</h3>
+        </header>
+        <form id="form-tema" class="novo-tema-wrapper" onsubmit="adicionarTema(event)">
+          <input id="novo-tema" placeholder="Tema" autocomplete="off" />
+          <button type="submit" class="botao-add" title="Adicionar">✦</button>
+        </form>
+        <ul id="lista-edicao-temas"></ul>
+      </aside>
+    </section>
+
+    <!-- Controles de paginação -->
+    <div id="controles-paginacao" class="paginacao">
+      <span id="paginacao-anterior">←</span>
+      <span id="pagina-atual">1</span>
+      <span id="paginacao-proximo">→</span>
+      <select id="itens-por-pagina">
+        <option value="10">10</option>
+        <option value="20" selected>20</option>
+        <option value="30">30</option>
+      </select>
+      <span id="total-paginas" class="total-paginas">/ ?</span>
+    </div>
+  </main>
+
+  <!-- Scripts externos -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+  <!-- Scripts da aplicação -->
+  <script type="module">
+    import { inicializarDatePicker } from './js/modules/ui.js';
+    import './js/main.js';
+
+    // ---- Toggle da eco-legenda ----
+    document.addEventListener("DOMContentLoaded", () => {
+      const toggle = document.querySelector(".eco-legenda-toggle");
+      const conteudo = document.querySelector(".eco-legenda-conteudo");
+      if (toggle && conteudo) {
+        toggle.addEventListener("click", () => {
+          const isExpanded = toggle.getAttribute("aria-expanded") === "true";
+          conteudo.style.display = conteudo.style.display === "block" ? "none" : "block";
+          conteudo.setAttribute("aria-hidden", isExpanded);
+          toggle.setAttribute("aria-expanded", !isExpanded);
+          toggle.classList.toggle("ativo");
+        });
+      }
+    });
+
+    // ---- Inicializar datepicker ----
+    const dataInput = document.getElementById('data-input');
+    if (dataInput) inicializarDatePicker(dataInput);
+
+    // ---- Expor funções globais para botões no HTML ----
+    window.abrirPainelTemas = abrirPainelTemas;
+    window.fecharPainelTemas = fecharPainelTemas;
+    window.adicionarTema = adicionarTema;
+  </script>
+</body>
+</html>

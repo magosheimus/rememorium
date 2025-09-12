@@ -1,0 +1,1 @@
+Ver README completo no projeto oficial do Rememorium.

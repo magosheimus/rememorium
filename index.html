@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rememorium: Ars Medica Memorata</title>
+  
+  <!-- Fontes -->
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English&display=swap" rel="stylesheet">
+  
+  <!-- Flatpickr CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+  <!-- CSS Base -->
+  <link rel="stylesheet" href="./css/style-base.css">
+  <link rel="stylesheet" href="./css/style-layout.css">
+  <!-- CSS Componentes -->
+  <link rel="stylesheet" href="./css/style-forms.css">
+  <link rel="stylesheet" href="./css/style-tables.css">
+  <link rel="stylesheet" href="./css/style-components.css">
+  <link rel="stylesheet" href="./css/style-modals.css">
+  <!-- CSS Responsivo -->
+  <link rel="stylesheet" href="./css/style-responsive.css">
+</head>
+<body>
+  <!-- Barra de Navegação -->
+  <nav>
+    <div class="logo" style="display: flex; align-items: center; gap: 1rem;">
+      <img src="assets/logo.png" alt="Logo Rememorium" class="logo"/>
+    </div>
+    <!-- Botão logout (mantido) -->
+    <a href="#" onclick="logout()" class="botao-sair">Logout</a>
+    <div class="nav-grupo">
+      <ul>
+        <li><a href="fragmentos.html">Página de Fragmentos</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Cabeçalho -->
+  <header>
+    <h1 class="titulo-principal">Re:memorium</h1>
+    <h2 class="titulo-secundario">Ars Medica Memorata</h2>
+  </header>
+
+  <main>
+    <!-- Mensagem de boas-vindas -->
+    <section id="boas-vindas">
+      <p>Welcome back, Dr. Bint Sina. Your journey to mastery continues.</p>
+    </section>
+
+    <!-- Contador regressivo e inspiração -->
+    <section id="contador-inspiracao">
+      <div class="contagem-regressiva">
+        <h4>Contagem Regressiva - <span id="subtitulo-prova">Revalida 25-2</span></h4>
+        <div class="contador">
+          <span id="contador-dias" class="numero"></span><span class="dias">dias</span>
+        </div>
+      </div>
+      <div class="bloco-inspiracao">
+        <div class="dua-container">
+          <button class="navegar-dua" id="dua-anterior">&#8592;</button>
+          <div class="conteudo-dua">
+            <p class="arabe" id="texto-dua-arabe">رَبِّ زِدْنِي عِلْمًا</p>
+            <p class="transliteracao" id="texto-dua-transliteracao">Rabbi zidni ilma</p>
+            <p class="traducao" id="texto-dua-traducao">Ó meu Senhor, aumenta-me em conhecimento.</p>
+          </div>
+          <button class="navegar-dua" id="dua-proximo">&#8594;</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Painel principal -->
+    <section id="painel-principal">
+      <h3 class="titulo-decorativo">Registro da Mem<span class="fallback">ó</span>ria</h3>
+      <div class="blocos-principais">
+        <div class="bloco">
+          <h4>Questões Evocadas</h4>
+          <strong id="contador-questoes">0</strong>
+        </div>
+        <div class="bloco">
+          <h4>Eco da Performance</h4>
+          <strong id="eco-performance">0 %</strong>
+        </div>
+        <div class="bloco">
+          <h4>Última Evocação</h4>
+          <strong id="ultima-evocacao">-</strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tabela de fragmentos -->
+    <section id="fragmentos">
+      <h3 class="titulo-decorativo">Fragmentos do Saber</h3>
+      <div class="tabela-frame">
+        <table id="fragmentos-table">
+          <colgroup>
+            <col style="width:42px">
+            <col>
+            <col style="width:130px">
+            <col style="width:100px">
+            <col style="width:100px">
+            <col style="width:100px">
+            <col style="width:100px">
+            <col style="width:220px">
+          </colgroup>
+          <thead>
+            <tr>
+              <th>H</th>
+              <th>Tema</th>
+              <th>Última Revisão</th>
+              <th>Eco Inicial</th>
+              <th>Eco Final</th>
+              <th>Confiança</th>
+              <th>Revisões</th>
+              <th class="col-hashtags">Hashtags</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Heatmap -->
+    <section id="heatmap">
+      <h3 class="titulo-decorativo">Diário de Progresso</h3>
+      <div id="heatmap-container"></div>
+      <div id="heatmap-legend">
+        <div class="heatmap-legenda-item"><div class="heatmap-legenda-box questoes-0"></div> Nenhuma atividade</div>
+        <div class="heatmap-legenda-item"><div class="heatmap-legenda-box questoes-1"></div> 1-19 Questões</div>
+        <div class="heatmap-legenda-item"><div class="heatmap-legenda-box questoes-2"></div> 20-49 Questões</div>
+        <div class="heatmap-legenda-item"><div class="heatmap-legenda-box questoes-3"></div> 50-79 Questões</div>
+        <div class="heatmap-legenda-item"><div class="heatmap-legenda-box questoes-4"></div> 80-100+ Questões</div>
+      </div>
+    </section>
+
+    <!-- Log de revisões -->
+    <section id="log-section">
+      <h3 class="titulo-decorativo">Últimas Evocações</h3>
+      <div id="log-revisoes"></div>
+    </section>
+  </main>
+
+  <!-- Pomodoro -->
+  <footer id="pomodoro">
+    <div id="pomodoro-conteudo">
+      <button id="start-pomodoro" aria-label="Controle do Pomodoro">
+        <img src="assets/play-pomodoro.svg" alt="Iniciar/Pausar Pomodoro" />
+      </button>
+      <p>Pomodoro: <span id="pomodoro-timer">25:00</span></p>
+    </div>
+  </footer>
+
+  <!-- Dependência externa -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+  <!-- Scripts da aplicação -->
+  <script type="module">
+    import { inicializarDatePicker } from './js/modules/ui.js';
+    import { logout } from './js/modules/auth.js';
+    import './js/database.js';
+    import './js/utils.js';
+    import './js/main.js';
+
+    // ---- Carregar modal externo ----
+    (async () => {
+      const resp = await fetch('modal.html');
+      const html = await resp.text();
+      document.body.insertAdjacentHTML('beforeend', html);
+
+      // Inicializar datepicker do modal, se existir
+      const input = document.getElementById('dataProvaInput');
+      if (input) inicializarDatePicker(input);
+    })();
+
+    // ---- Expor função de logout para o botão no HTML ----
+    window.logout = logout;
+  </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!-- ==========================================================================
+     MODAL DE CONFIGURAÇÃO INICIAL
+     ========================================================================== -->
+<div id="modal-nome" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-nome-titulo">
+  
+  <!-- Botão de fechar -->
+  <button class="modal-fechar" onclick="fecharModal()" aria-label="Fechar modal">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M19 6.41L17.59 5 12 10.59 6.41 5 
+               5 6.41 10.59 12 5 17.59 6.41 19 
+               12 13.41 17.59 19 19 17.59 
+               13.41 12z"/>
+    </svg>
+  </button>
+
+  <!-- Conteúdo principal -->
+  <div class="modal-conteudo">
+    <h2 id="modal-nome-titulo">Bem-vindo ao Rememorium</h2>
+    <p class="modal-subtitulo">
+      Aqui seus fragmentos de saber ganham vida.  
+      Revise, evoque e fortaleça sua memória em ciclos de lembrança.
+    </p>
+
+    <!-- Campo Nome Arcano -->
+    <label for="nomeArcanoInput">Como devemos chamá-lo(a), guardião do conhecimento?</label>
+    <input 
+      type="text" 
+      id="nomeArcanoInput" 
+      placeholder="Seu nome arcano..." 
+      maxlength="30"
+    />
+
+    <!-- Campo Nome da Prova -->
+    <label for="provaInput">Qual prova você prestará?</label>
+    <input 
+      type="text" 
+      id="provaInput" 
+      placeholder="Ex: Revalida 25.2" 
+      maxlength="30"
+    />
+
+    <!-- Campo Data da Prova -->
+    <label for="dataProvaInput">Data da prova:</label>
+    <input 
+      type="text" 
+      id="dataProvaInput" 
+      placeholder="dd/mm/aaaa"
+    />
+
+    <!-- Botão de ação -->
+    <button onclick="salvarNomeArcano()">Selar Configuração Inicial</button>
+  </div>
+</div>

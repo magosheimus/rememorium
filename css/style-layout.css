@@ -1,0 +1,191 @@
+/* ==========================================================================
+   ARQUIVO: style-layout.css
+   DESCRIÇÃO: Estilos para layout, navegação e componentes estruturais
+   ========================================================================== */
+
+/* ==========================================================================
+   NAVEGAÇÃO PRINCIPAL
+   ========================================================================== */
+nav {
+  width: 100%;
+  background-color: var(--marrom-principal);
+  color: var(--bg-principal);
+  display: flex;
+  align-items: center;
+  padding: 0.1rem 1rem;
+  box-sizing: border-box;
+  height: 50px;
+}
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+}
+nav a {
+  color: var(--bg-principal);
+  text-decoration: none;
+  font-weight: bold;
+}
+/* Grupo de elementos à direita da navegação */
+.nav-grupo {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-left: auto;
+}
+/* Logo do site */
+.logo {
+  display: flex;
+  align-items: center;
+}
+.logo img {
+  width: 30px;
+  height: auto;
+}
+/* Ícone do painel lateral */
+.painel-icone {
+  margin-left: auto;
+  display: flex;
+  height: auto;
+  padding: 0.25rem;
+}
+/* Botão para abrir painel de temas */
+.botao-pergaminho {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #f6e7cd;
+  transition: transform 0.2s ease, color 0.3s ease;
+  font-family: 'IM Fell English', serif;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0;
+  margin-right: 6px;
+}
+.botao-pergaminho:hover {
+  transform: scale(1.2);
+  color: #d9903d;
+}
+/* Fallback para ícones (emoji caso SVG falhe) */
+.emoji-fallback {
+  display: none;
+}
+.icone-pergaminho {
+  display: block;
+}
+.icone-pergaminho[data-fallback] + .emoji-fallback {
+  display: block;
+}
+
+/* ==========================================================================
+   CABEÇALHO E TÍTULOS
+   ========================================================================== */
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  background-color: transparent;
+}
+/* Título principal da página */
+.titulo-principal {
+  font-family: 'Kingthings Spike', serif;
+  font-size: 3rem;
+  font-weight: normal;
+  margin: 0;
+  text-align: center;
+}
+.titulo-principal a {
+  font-weight: normal;
+}
+.titulo-principal a:hover {
+  text-shadow: 0 0 4px #f6e7cd99;
+}
+/* Título secundário/subtítulo */
+.titulo-secundario {
+  font-family: 'Saint-Andrews Queen', cursive;
+  font-size: 1.5rem;
+  font-weight: normal;
+  margin: 0;
+  opacity: 0.85;
+}
+/* Títulos específicos para seção de fragmentos */
+.titulo-fragmentos {
+  font-family: 'Carolingia', cursive;
+  font-weight: normal;
+  font-size: 2.2rem;
+  text-align: left;
+  color: var(--marrom-principal);
+  margin-top: -1.6rem;
+}
+.subtitulo-fragmentos {
+  font-family: 'OldLondon', cursive;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0;
+  opacity: 0.85;
+  letter-spacing: 0.5px;
+  color: var(--marrom-principal);
+}
+
+/* ==========================================================================
+   CONTEÚDO PRINCIPAL
+   ========================================================================== */
+main {
+  padding: 0 3rem;
+  margin: 0 auto;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* ==========================================================================
+   RODAPÉ POMODORO (BARRA INFERIOR FIXA)
+   ========================================================================== */
+footer#pomodoro {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 42px;
+  background-color: var(--marrom-principal);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 1rem;
+  font-family: 'IM Fell English', serif;
+  font-size: 1rem;
+  z-index: 10;
+}
+#pomodoro-conteudo {
+  display: flex;
+  align-items: center;
+}
+/* Botão de iniciar/controlar pomodoro */
+#start-pomodoro {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-right: 0.5rem;
+}
+#start-pomodoro img {
+  width: 20px;
+  height: auto;
+  filter: invert(99%) sepia(72%) saturate(897%) hue-rotate(302deg) brightness(107%) contrast(93%);
+  transition: transform 0.2s ease;
+}
+#start-pomodoro:hover img {
+  transform: scale(1.1);
+}
+#pomodoro p {
+  margin: 0;
+  color: #f6e7cd;
+  font-weight: bold;
+}

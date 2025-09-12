@@ -1,0 +1,213 @@
+/* ==========================================================================
+   ARQUIVO: style-modals.css
+   DESCRIÇÃO: Estilos para modais e diálogos da aplicação
+   ========================================================================== */
+
+/* ==========================================================================
+   MODAL PRINCIPAL - ESTRUTURA BASE
+   ========================================================================== */
+#modal-nome {
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+#modal-nome.ativo {
+  display: flex;
+  opacity: 1;
+  visibility: visible;
+}
+/* Container do modal - overlay escuro */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(50, 40, 27, 0.92);
+  backdrop-filter: blur(5px);
+  justify-content: center;
+  align-items: center;
+  font-family: 'IM Fell English', serif;
+  animation: fadeIn 0.3s ease-out;
+}
+/* Conteúdo principal do modal */
+.modal-conteudo {
+  z-index: 10001;
+  background: #f9f2e3;
+  color: #32281b;
+  border: 2px solid #c7a877;
+  padding: 3rem 2.5rem 2.5rem 2.5rem;
+  overflow: hidden;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 450px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25),
+              0 0 0 1px rgba(199, 168, 119, 0.3);
+  animation: slideUp 0.4s ease-out;
+  position: relative;
+}
+/* Botão de fechar modal */
+.modal-fechar {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.2rem;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  opacity: 0.7;
+  z-index: 10;
+}
+.modal-fechar:hover {
+  opacity: 1;
+  transform: rotate(90deg);
+  background: rgba(169, 107, 63, 0.1) !important;
+}
+.modal-fechar svg {
+  width: 18px;
+  height: 18px;
+  fill: #a96b3f;
+}
+.modal-fechar:hover svg {
+  fill: #8a5c3b;
+}
+
+/* ==========================================================================
+   CONTEÚDO DO MODAL
+   ========================================================================== */
+/* Títulos e textos */
+.modal-conteudo h2 {
+  margin-bottom: 0.5rem;
+  font-size: 1.6rem;
+  color: #32281b;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.modal-subtitulo {
+  font-size: 1rem;
+  color: var(--rubrica, #b8a98f); /* fallback se var não existir */
+  margin: 0.5rem 0 1rem;
+  line-height: 1.4;
+  font-style: italic;
+  text-align: center;
+}
+/* Labels */
+.modal-conteudo label {
+  display: block;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  color: #5a4a30;
+  font-style: italic;
+}
+/* Inputs */
+.modal-conteudo input {
+  width: 100%;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  border: 2px solid #c7a877;
+  border-radius: 10px;
+  background: #fffdf8;
+  font-size: 1.1rem;
+  color: #32281b;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+.modal-conteudo input:focus {
+  outline: none;
+  border-color: #a96b3f;
+  box-shadow: 0 0 0 3px rgba(169, 107, 63, 0.2);
+}
+.modal-conteudo input::placeholder {
+  font-family: 'IM Fell English', serif;
+  color: #b8a98c;
+  font-style: italic;
+}
+/* Botões */
+.modal-conteudo button {
+  background: #32281b;
+  border: 2px solid #c7a877;
+  color: #f6e7cd;
+  border-radius: 10px;
+  padding: 0.9rem 1.6rem;
+  font-size: 1.05rem;
+  font-family: 'IM Fell English', serif;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.25),
+              inset 0 0 0 1px rgba(255,255,255,0.1);
+}
+.modal-conteudo button:hover {
+  background: #4a3a2a;
+  border-color: #e3bc90;
+  color: #fff9ef;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.35),
+              inset 0 0 0 1px rgba(255,255,255,0.2);
+}
+.modal-conteudo button:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* ==========================================================================
+   ANIMAÇÕES
+   ========================================================================== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ==========================================================================
+   AJUSTES ESPECÍFICOS PARA MODAL DE NOME
+   ========================================================================== */
+#modal-nome .modal-conteudo {
+  padding: 2rem 2rem 1.5rem;
+}
+/* Título com espaçamento reduzido */
+#modal-nome .modal-conteudo h2 {
+  margin-bottom: .25rem;
+}
+/* Label mais próximo do campo */
+#modal-nome .modal-conteudo label {
+  margin-bottom: .35rem;
+}
+/* Espaçamento entre seções de formulário */
+#modal-nome .modal-conteudo label:not(:first-of-type) {
+  margin-top: .75rem;
+}
+/* Inputs mais compactos */
+#modal-nome .modal-conteudo input {
+  padding: .85rem 1rem;
+  margin: .35rem 0 .8rem;
+}
+/* Ajustes específicos para input de data */
+#modal-nome .modal-conteudo input[type="date"] {
+  line-height: 1;
+  height: 2.6rem;
+  padding: .7rem 1rem;
+}
+/* Botão mais próximo dos campos */
+#modal-nome .modal-conteudo button {
+  margin-top: .6rem;
+}

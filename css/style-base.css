@@ -1,0 +1,130 @@
+/* =============================================================================
+   ARQUIVO: style-base.css
+   DESCRIÇÃO: Configurações base do tema (variáveis, fontes e estilos globais)
+   ============================================================================= */
+
+/* =============================================================================
+   VARIÁVEIS GLOBAIS
+   Paleta de cores e escalas temáticas
+   ============================================================================= */
+:root {
+  /* --- Cores principais --- */
+  --bg-principal: #f7e7cd;            /* Fundo principal */
+  --marrom-principal: #32281b;        /* Texto primário / bordas */
+  --rubrica: #61594c;                 /* Créditos, detalhes */
+
+  /* --- Cores de destaque --- */
+  --destaque-claro: #d5b47c;          /* Inputs, campos */
+  --destaque-medio: #c97b26;          /* Botões, calls-to-action */
+  --destaque-escuro: #9e5f19;         /* Hover / ênfase */
+
+  /* --- Auras (status de fragmentos) --- */
+  --aura-urgente: #bd6b4e;            /* Urgência / erro */
+  --aura-instavel: #da9e52;           /* Instabilidade / alerta */
+  --aura-consolidada: #cabd70;        /* Estabilidade / sucesso */
+
+  /* --- Componentes específicos --- */
+  --tabela-cabecalho: #d4c1a4;        /* Fundo cabeçalho tabela */
+  --hashtag-fundo: #d4c1a4;           /* Fundo chips hashtags */
+  --hashtag-borda: #b2a28a;           /* Borda hashtags */
+
+  /* --- Escala heatmap (intensidade revisões) --- */
+  --heatmap-0: #f4e7cd;               /* Nenhuma revisão */
+  --heatmap-1: #e5dc9d;               /* Baixa intensidade */
+  --heatmap-2: var(--aura-consolidada); /* Média intensidade */
+  --heatmap-3: var(--aura-instavel);    /* Alta intensidade */
+  --heatmap-4: var(--aura-urgente);     /* Intensidade máxima */
+}
+
+/* =============================================================================
+   FONTES PERSONALIZADAS
+   ============================================================================= */
+
+/* Fonte principal (serifado tradicional) */
+@font-face {
+  font-family: 'IM Fell English';
+  src: url('../assets/fonts/IM_FELL_English_Roman.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'IM Fell English';
+  src: url('../assets/fonts/IM_FELL_English_Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+/* Fontes decorativas (títulos e especiais) */
+@font-face {
+  font-family: 'Kingthings Spike';
+  src: url('../assets/fonts/Kingthings_Spike.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Saint-Andrews Queen';
+  src: url('../assets/fonts/Saint_Andrews_Queen.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Lavishly Yours';
+  src: url('../assets/fonts/LavishlyYours-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Carolingia';
+  src: url('../assets/fonts/carolingia.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'OldLondon';
+  src: url('../assets/fonts/OldLondon.ttf') format('truetype');
+}
+
+/* =============================================================================
+   ESTILOS GERAIS E RESET
+   ============================================================================= */
+
+/* Reset básico para consistência */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+*:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(200, 160, 120, 0.5); /* Tom sépia */
+  border-radius: 4px;
+}
+
+/* Reset de margens em blocos de texto */
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Corpo principal */
+body {
+  font-family: 'IM Fell English', serif;
+  background-color: var(--bg-principal);
+  color: var(--marrom-principal);
+  line-height: 1.6;
+}
+
+/* =============================================================================
+   COMPONENTES ESPECÍFICOS
+   ============================================================================= */
+
+/* Título decorativo */
+.titulo-decorativo {
+  font-family: 'Carolingia', cursive;
+  font-weight: normal;
+  font-size: 2.2rem;
+  text-align: left;
+  margin-bottom: 0.5rem;
+  color: var(--marrom-principal);
+}
+
+/* Fallback se fontes especiais não carregarem */
+.fallback {
+  font-family: 'IM Fell English', serif;
+  font-weight: bold;
+  font-size: 1.4rem;
+  display: inline-block;
+  color: var(--marrom-principal);
+}
