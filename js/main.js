@@ -93,8 +93,8 @@ async function inicializarAplicacao() {
 
         // Já existe nome → atualiza UI
         if (el.boasVindasEl) {
-          el.boasVindasEl.textContent =
-            `<em>Welcome back, ${config.nome}. Your journey to mastery continues.</em>`;
+          el.boasVindasEl.innerHTML =
+            `Welcome back, ${config.nome}. Your journey to mastery continues.`;
         }
 
         if (el.subtituloProva) {
@@ -120,6 +120,10 @@ async function inicializarAplicacao() {
         await carregarFragmentos();
         configurarEventosTabela(el.tbody, excluirFragmentoPorId, el);
         atualizarTudo(el, fragmentosData);
+
+        if (el.heatmapContainer) {
+          gerarHeatmapSimples(el.heatmapContainer, fragmentosData);
+        }
 
       } else {
         console.warn("⚠️ Nenhum usuário logado, mostrando modal de nome.");
@@ -202,10 +206,6 @@ async function inicializarAplicacao() {
 
     if (el.elementoArabe && el.elementoTransliteracao && el.elementoTraducao) {
       inicializarDuas(el.elementoArabe, el.elementoTransliteracao, el.elementoTraducao);
-    }
-    
-    if (el.heatmapContainer) {
-      gerarHeatmapSimples(el.heatmapContainer, fragmentosData);
     }
 
     // Autocomplete
