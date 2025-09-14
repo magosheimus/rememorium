@@ -192,8 +192,10 @@ export async function salvarNomeArcano() {
 
   // Atualiza UI
   if (el.boasVindasEl) {
-    el.boasVindasEl.textContent =
-      `Welcome back, ${novaConfig.nome}. Your journey to mastery continues.`;
+    const p = el.boasVindasEl.querySelector("p");
+    if (p) {
+        p.textContent = `Welcome back, ${novaConfig.nome}. Your journey to mastery continues.`;
+    }
   }
 
   // Atualiza prova e contador, se os elementos existirem
@@ -214,7 +216,11 @@ export async function salvarNomeArcano() {
  */
 export function atualizarSaudacao(elemento, nome) {
     if (!elemento || !nome) return;
-    elemento.innerHTML = `<p class="boas-vindas">Welcome back, ${nome}. Your journey to mastery continues.</p>`;
+
+    const p = elemento.querySelector("p");
+    if (p) {
+        p.textContent = `Welcome back, ${nome}. Your journey to mastery continues.`;
+    }
 }
 
 /* ============================================================================
