@@ -81,23 +81,24 @@ async function inicializarAplicacao() {
         const uid = user.uid;
         const config = await obterConfigUsuario(uid);
 
-        // Configurações do usuário
-        if (config && config.nome?.trim() && config.prova?.trim() && config.dataProva?.trim()) {
-          if (el.boasVindasEl) {
-            el.boasVindasEl.textContent =
-              `Welcome back, ${config.nome}. Your journey to mastery continues.`;
-          }
-          if (el.subtituloProva) {
-            el.subtituloProva.textContent = config.prova;
-          }
-          if (el.contadorSpan) {
-            atualizarCountdown(el.contadorSpan, el.subtituloProva, config.dataProva, config.prova);
-          }
-          document.getElementById("modal-nome")?.classList.remove("ativo");
-        } else {
+        if (!config) config = {};
+        if (!config.nome?.trim() || config.nome === "Dr. Bint Sina") {
           document.getElementById("modal-nome")?.classList.add("ativo");
+        } else {
+           // Configurações do usuário
+          if (config && config.nome?.trim()) {
+            if (el.boasVindasEl) {
+              el.boasVindasEl.textContent =
+                `Welcome back, ${config.nome}. Your journey to mastery continues.`;
+            }
+            if (el.subtituloProva) {
+              el.subtituloProva.textContent = config.prova || "";
+            }
+            if (el.contadorSpan && config.dataProva) {
+              atualizarCountdown(el.contadorSpan, el.subtituloProva, config.dataProva, config.prova);
+          }
         }
-
+          document.getElementById("modal-nome")?.classList.remove("ativo");
         // Fragmentos do Firestore
         await carregarFragmentos();
         configurarEventosTabela(el.tbody, excluirFragmentoPorId, el);
@@ -110,9 +111,7 @@ async function inicializarAplicacao() {
           gerarHeatmapSimples(el.heatmapContainer, fragmentosData);
         }
         
-      } else {
-        console.warn("⚠️ Nenhum usuário logado, mostrando modal de nome.");
-        document.getElementById("modal-nome")?.classList.add("ativo");
+      } 
       }
     });
 
@@ -393,6 +392,5 @@ window.fecharPainelTemas = fecharPainelTemas;
 window.adicionarTema = adicionarTema;
 //window.abrirPainelPrincipal = abrirPainelPrincipal;
 //window.carregarFragmentos = carregarFragmentos;
-//window.salvarNomeArcano = salvarNomeArcano;
 //window.fecharModal = fecharModalNome;
 //window.logout = logout;

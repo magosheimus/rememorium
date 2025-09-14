@@ -155,25 +155,24 @@ export function salvarNomeUsuario(inputEl, boasVindasEl, modalEl) {
 }
 
 /**
- * Versão estendida de salvarNomeUsuario:
+ * Salva dados e fecha o modal SOMENTE se os campos forem válidos
  * além de localStorage/Firebase, também grava no Firestore.
  */
-export async function salvarNomeArcano(inputEl = null, boasVindasEl = null, modalEl = null) {
-    const input = inputEl || document.getElementById("nomeArcanoInput");
-    const boasVindas = boasVindasEl || document.getElementById("boas-vindas");
-    const modal = modalEl || document.getElementById("modal-nome");
-
+export async function salvarNomeArcano() {
+    const nomeEl = document.getElementById("nomeArcanoInput");
     const provaEl = document.getElementById("provaInput");
-    const dataEl = document.getElementById("dataProvaInput");
+    const dataEl  = document.getElementById("dataProvaInput");
+    const modal   = document.getElementById("modal-nome");
 
-    const nome = input?.value?.trim() || "";
+    const nome = nomeEl?.value?.trim() || "";
     const prova = provaEl?.value?.trim() || "";
     const dataProva = dataEl?.value?.trim() || "";
 
+    // exige nome, os outros podem ser vazios
     if (!nome) {
-        if (input) {
-            input.style.borderColor = "#c4554c";
-            input.placeholder = "Por favor, digite seu nome...";
+        if (nomeEl) {
+        nomeEl.style.borderColor = "#c4554c";
+        nomeEl.placeholder = "Por favor, digite seu nome...";
         }
         return;
     }
@@ -184,7 +183,6 @@ export async function salvarNomeArcano(inputEl = null, boasVindasEl = null, moda
         return;
     }
 
-    // Pega config atual e faz merge
     const atual = await obterConfigUsuario(uid) || {};
     const novaConfig = {
         nome: nome || (atual.nome?.trim() ?? ""),
@@ -195,10 +193,26 @@ export async function salvarNomeArcano(inputEl = null, boasVindasEl = null, moda
     await salvarConfigUsuario(uid, novaConfig);
 
     // Atualiza UI
+    const boasVindas = document.getElementById("boas-vindas");
     if (boasVindas) {
-        boasVindas.textContent = `Welcome back, ${novaConfig.nome}. Your journey to mastery continues.`;
+        boasVindas.textContent =
+        `Welcome back, ${novaConfig.nome}. Your journey to mastery continues.`;
     }
-    if (modal) modal.classList.remove("ativo");
+
+        // Atualiza prova e contador, se os elementos existirem
+        const subtituloProvaEl = document.getElementById("subtitulo-prova");
+        const contadorSpan = document.getElementById("contador-dias");
+
+        if (subtituloProvaEl && contadorSpan && novaConfig.dataProva && novaConfig.prova) {
+        subtituloProvaEl.textContent = novaConfig.prova;
+        atualizarCountdown(contadorSpan, subtituloProvaEl, novaConfig.dataProva, novaConfig.prova);
+        }
+
+    // fecha só aqui
+    if (modal) {
+        modal.classList.remove("ativo");
+        modal.style.display = "none";
+    }
 }
 
 /**
@@ -234,7 +248,6 @@ export function abrirModalNome(modal, inputElement = null) {
     if (dataEl && !dataEl.value) dataEl.value = dataSalva;
 
     // Mostra modal
-    modal.style.display = "flex";
     modal.classList.add('ativo');
 
     // Foca no input após abrir
@@ -243,14 +256,14 @@ export function abrirModalNome(modal, inputElement = null) {
 }
 
 /**
- * Fecha modal de nome do usuário.
- * Marca em localStorage que já foi fechado.
+ * Fecha SEMPRE o modal de nome, independente de dados preenchidos
  */
-export function fecharModalNome(modal) {
-    if (!modal) return;
-    modal.style.display = "none";
-    modal.classList.remove('ativo');
-    localStorage.setItem('modalNomeFechado', 'true');
+export function fecharModalNome() {
+    const modal = document.getElementById("modal-nome");
+    if (modal) {
+        modal.classList.remove("ativo");
+        modal.style.display = "none"; // garante que suma da tela
+    }
 }
 
 /* ============================================================================
@@ -279,3 +292,4 @@ export function observarAutenticacao(callback) {
    DEBUG / EXPOSIÇÃO GLOBAL
    ============================================================================ */
 //window.loginComGoogle = loginComGoogle;
+window.salvarNomeArcano = salvarNomeArcano;
