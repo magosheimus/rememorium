@@ -94,7 +94,7 @@ async function inicializarAplicacao() {
         // Já existe nome → atualiza UI
         if (el.boasVindasEl) {
           el.boasVindasEl.textContent =
-            `Welcome back, ${config.nome}. Your journey to mastery continues.`;
+            `<em>Welcome back, ${config.nome}. Your journey to mastery continues.</em>`;
         }
 
         if (el.subtituloProva) {
@@ -202,6 +202,10 @@ async function inicializarAplicacao() {
 
     if (el.elementoArabe && el.elementoTransliteracao && el.elementoTraducao) {
       inicializarDuas(el.elementoArabe, el.elementoTransliteracao, el.elementoTraducao);
+    }
+    
+    if (el.heatmapContainer) {
+      gerarHeatmapSimples(el.heatmapContainer, fragmentosData);
     }
 
     // Autocomplete
