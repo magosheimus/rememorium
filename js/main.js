@@ -79,41 +79,57 @@ async function inicializarAplicacao() {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         const uid = user.uid;
-        const config = await obterConfigUsuario(uid);
-
+        let config = await obterConfigUsuario(uid);
         if (!config) config = {};
-        if (!config.nome?.trim() || config.nome === "Dr. Bint Sina") {
-          document.getElementById("modal-nome")?.classList.add("ativo");
-        } else {
-           // Configurações do usuário
-          if (config && config.nome?.trim()) {
-            if (el.boasVindasEl) {
-              el.boasVindasEl.textContent =
-                `Welcome back, ${config.nome}. Your journey to mastery continues.`;
-            }
-            if (el.subtituloProva) {
-              el.subtituloProva.textContent = config.prova || "";
-            }
-            if (el.contadorSpan && config.dataProva) {
-              atualizarCountdown(el.contadorSpan, el.subtituloProva, config.dataProva, config.prova);
+
+        // Se não houver nome definido → abre modal
+        if (!config.nome?.trim()) {
+          if (el.modalNome) {
+            el.modalNome.classList.add("ativo");
+            el.modalNome.style.display = "flex";
           }
+          return; // interrompe aqui até preencher
         }
-          document.getElementById("modal-nome")?.classList.remove("ativo");
-        // Fragmentos do Firestore
+
+        // Já existe nome → atualiza UI
+        if (el.boasVindasEl) {
+          el.boasVindasEl.textContent =
+            `Welcome back, ${config.nome}. Your journey to mastery continues.`;
+        }
+
+        if (el.subtituloProva) {
+          el.subtituloProva.textContent = config.prova || "";
+        }
+
+        if (el.contadorSpan && config.dataProva) {
+          atualizarCountdown(
+            el.contadorSpan,
+            el.subtituloProva,
+            config.dataProva,
+            config.prova
+          );
+        }
+
+        // Fecha modal se já houver nome
+        if (el.modalNome) {
+          el.modalNome.classList.remove("ativo");
+          el.modalNome.style.display = "none";
+        }
+
+        // Carrega fragmentos e UI
         await carregarFragmentos();
         configurarEventosTabela(el.tbody, excluirFragmentoPorId, el);
-
-        // Dashboard 
         atualizarTudo(el, fragmentosData);
 
-        // Heatmap
-        if (el.heatmapContainer) {
-          gerarHeatmapSimples(el.heatmapContainer, fragmentosData);
+      } else {
+        console.warn("⚠️ Nenhum usuário logado, mostrando modal de nome.");
+        if (el.modalNome) {
+          el.modalNome.classList.add("ativo");
+          el.modalNome.style.display = "flex";
         }
-        
-      } 
       }
     });
+      
 
     // -------------------------------------------------------------------------
     // COMPONENTES DE UI

@@ -159,60 +159,54 @@ export function salvarNomeUsuario(inputEl, boasVindasEl, modalEl) {
  * além de localStorage/Firebase, também grava no Firestore.
  */
 export async function salvarNomeArcano() {
-    const nomeEl = document.getElementById("nomeArcanoInput");
-    const provaEl = document.getElementById("provaInput");
-    const dataEl  = document.getElementById("dataProvaInput");
-    const modal   = document.getElementById("modal-nome");
+  const el = obterElementosDOM();
+  if (!el) return;
 
-    const nome = nomeEl?.value?.trim() || "";
-    const prova = provaEl?.value?.trim() || "";
-    const dataProva = dataEl?.value?.trim() || "";
+  const nome = el.inputNome?.value?.trim() || "";
+  const prova = el.subtituloProva?.value?.trim() || document.getElementById("provaInput")?.value?.trim() || "";
+  const dataProva = document.getElementById("dataProvaInput")?.value?.trim() || "";
 
-    // exige nome, os outros podem ser vazios
-    if (!nome) {
-        if (nomeEl) {
-        nomeEl.style.borderColor = "#c4554c";
-        nomeEl.placeholder = "Por favor, digite seu nome...";
-        }
-        return;
+  // exige nome, os outros podem ser vazios
+  if (!nome) {
+    if (el.inputNome) {
+      el.inputNome.style.borderColor = "#c4554c";
+      el.inputNome.placeholder = "Por favor, digite seu nome...";
     }
+    return;
+  }
 
-    const uid = auth.currentUser?.uid;
-    if (!uid) {
-        alert("Você precisa estar logado para salvar as configurações.");
-        return;
-    }
+  const uid = auth.currentUser?.uid;
+  if (!uid) {
+    alert("Você precisa estar logado para salvar as configurações.");
+    return;
+  }
 
-    const atual = await obterConfigUsuario(uid) || {};
-    const novaConfig = {
-        nome: nome || (atual.nome?.trim() ?? ""),
-        prova: prova || (atual.prova?.trim() ?? ""),
-        dataProva: dataProva || (atual.dataProva?.trim() ?? "")
-    };
+  const atual = await obterConfigUsuario(uid) || {};
+  const novaConfig = {
+    nome: nome || (atual.nome?.trim() ?? ""),
+    prova: prova || (atual.prova?.trim() ?? ""),
+    dataProva: dataProva || (atual.dataProva?.trim() ?? "")
+  };
 
-    await salvarConfigUsuario(uid, novaConfig);
+  await salvarConfigUsuario(uid, novaConfig);
 
-    // Atualiza UI
-    const boasVindas = document.getElementById("boas-vindas");
-    if (boasVindas) {
-        boasVindas.textContent =
-        `Welcome back, ${novaConfig.nome}. Your journey to mastery continues.`;
-    }
+  // Atualiza UI
+  if (el.boasVindasEl) {
+    el.boasVindasEl.textContent =
+      `Welcome back, ${novaConfig.nome}. Your journey to mastery continues.`;
+  }
 
-        // Atualiza prova e contador, se os elementos existirem
-        const subtituloProvaEl = document.getElementById("subtitulo-prova");
-        const contadorSpan = document.getElementById("contador-dias");
+  // Atualiza prova e contador, se os elementos existirem
+  if (el.subtituloProva && el.contadorSpan && novaConfig.dataProva && novaConfig.prova) {
+    el.subtituloProva.textContent = novaConfig.prova;
+    atualizarCountdown(el.contadorSpan, el.subtituloProva, novaConfig.dataProva, novaConfig.prova);
+  }
 
-        if (subtituloProvaEl && contadorSpan && novaConfig.dataProva && novaConfig.prova) {
-        subtituloProvaEl.textContent = novaConfig.prova;
-        atualizarCountdown(contadorSpan, subtituloProvaEl, novaConfig.dataProva, novaConfig.prova);
-        }
-
-    // fecha só aqui
-    if (modal) {
-        modal.classList.remove("ativo");
-        modal.style.display = "none";
-    }
+  // Fecha modal
+  if (el.modalNome) {
+    el.modalNome.classList.remove("ativo");
+    el.modalNome.style.display = "none";
+  }
 }
 
 /**
