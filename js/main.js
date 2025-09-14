@@ -94,7 +94,7 @@ async function inicializarAplicacao() {
         // Já existe nome → atualiza UI
         if (el.boasVindasEl) {
           el.boasVindasEl.innerHTML =
-            `Welcome back, ${config.nome}. Your journey to mastery continues.`;
+            `<p>Welcome back, ${config.nome}. Your journey to mastery continues.</p>`;
         }
 
         if (el.subtituloProva) {
