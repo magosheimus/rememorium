@@ -1,0 +1,748 @@
+/* ==========================================================================
+   ARQUIVO: style-components.css
+   DESCRIÇÃO: Estilos para componentes específicos da aplicação
+   ========================================================================== */
+
+/* ==========================================================================
+   SEÇÃO DE BOAS-VINDAS
+   ========================================================================== */
+#boas-vindas p {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 1.3rem;
+  opacity: 0.9;
+  margin: 0;
+  padding-bottom: 0.5rem;
+}
+
+/* ==========================================================================
+   CONTADOR REGRESSIVO E BLOCO DE INSPIRAÇÃO
+   ========================================================================== */
+#contador-inspiracao {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 1.5rem;
+  margin: 0;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+/* Container para contador regressivo e bloco de inspiração */
+.contagem-regressiva,
+.bloco-inspiracao {
+  background: linear-gradient(160deg, #3e3122 0%, #2a1f10 100%);
+  border-radius: 14px;
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 160px;
+  text-align: center;
+  border: 1px solid rgba(199, 168, 119, 0.18);
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(199,168,119,0.1);
+  transition: box-shadow 0.25s ease;
+  color: var(--bg-principal);
+  position: relative;
+}
+
+/* Botão lápis (editar bloco) */
+.btn-editar-bloco {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.7rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.2rem;
+  line-height: 0;
+  border-radius: 4px;
+  width: 22px;
+  height: 22px;
+}
+.btn-editar-bloco::before {
+  content: '';
+  display: block;
+  width: 18px;
+  height: 18px;
+  background-color: #f7e7cd;
+  -webkit-mask: url('../assets/hand-drawn-pencil-icon-vector/hand-drawn-pencil-icon.svg') center / contain no-repeat;
+  mask: url('../assets/hand-drawn-pencil-icon-vector/hand-drawn-pencil-icon.svg') center / contain no-repeat;
+}
+
+/* Painel de edição dentro dos blocos escuros */
+.painel-editar-bloco {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  width: 100%;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(199, 168, 119, 0.2);
+}
+.painel-editar-bloco input,
+.painel-editar-bloco textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(199, 168, 119, 0.3);
+  border-radius: 7px;
+  color: var(--bg-principal);
+  padding: 0.45rem 0.7rem;
+  font-family: 'IM Fell English', serif;
+  font-size: 0.95rem;
+  resize: vertical;
+}
+.painel-editar-bloco input::placeholder,
+.painel-editar-bloco textarea::placeholder {
+  color: rgba(247, 231, 205, 0.35);
+}
+.painel-editar-acoes {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+.painel-editar-acoes button {
+  padding: 0.35rem 1rem;
+  border-radius: 20px;
+  border: 1px solid rgba(199, 168, 119, 0.5);
+  background: rgba(199, 168, 119, 0.15);
+  color: var(--bg-principal);
+  font-family: 'IM Fell English', serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.painel-editar-acoes button:hover {
+  background: rgba(199, 168, 119, 0.3);
+}
+.painel-editar-acoes .btn-secundario {
+  background: transparent;
+  border-color: rgba(247, 231, 205, 0.15);
+  color: rgba(247, 231, 205, 0.55);
+}
+.painel-editar-acoes .btn-secundario:hover {
+  background: rgba(255,255,255,0.05);
+  color: rgba(247, 231, 205, 0.85);
+}
+
+/* Wrapper dos 3 campos do formulário de inspiração */
+.form-inspiracao {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 100%;
+}
+
+/* Lista de inspirações no modo edição */
+#lista-inspiracoes-edit {
+  list-style: none;
+  width: 100%;
+  max-height: 160px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+#lista-inspiracoes-edit li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  background: rgba(255,255,255,0.05);
+  border-radius: 6px;
+  padding: 0.35rem 0.6rem;
+  font-size: 0.88rem;
+  text-align: left;
+  color: rgba(247, 231, 205, 0.8);
+}
+.inspiracao-texto {
+  flex: 1;
+  line-height: 1.4;
+}
+.btn-remover-inspiracao,
+.btn-editar-inspiracao {
+  flex-shrink: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0 0.15rem;
+  opacity: 0.35;
+  width: 18px;
+  height: 18px;
+  line-height: 0;
+  transition: opacity 0.15s;
+}
+.btn-editar-inspiracao::before {
+  content: '';
+  display: block;
+  width: 13px;
+  height: 13px;
+  background-color: #f7e7cd;
+  -webkit-mask: url('../assets/hand-drawn-pencil-icon-vector/hand-drawn-pencil-icon.svg') center / contain no-repeat;
+  mask: url('../assets/hand-drawn-pencil-icon-vector/hand-drawn-pencil-icon.svg') center / contain no-repeat;
+}
+.btn-editar-inspiracao:hover { opacity: 1; }
+.btn-remover-inspiracao {
+  color: rgba(247, 231, 205, 0.35);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  transition: color 0.15s;
+}
+.btn-remover-inspiracao:hover { color: #e07070; opacity: 1; }
+.contagem-regressiva:hover,
+.bloco-inspiracao:hover {
+  box-shadow:
+    0 7px 28px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(199,168,119,0.14);
+}
+/* Estilos do contador regressivo */
+.contagem-regressiva h4 {
+  font-family: 'Almendra', serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: rgba(247, 231, 205, 0.85);
+}
+#subtitulo-prova {
+  font: inherit;
+  color: inherit;
+}
+.contador {
+  display: flex;
+  margin-top: 0.5rem;
+  align-items: baseline;
+  justify-content: center;
+  line-height: 1;
+  font-family: 'IM Fell English', serif;
+}
+.contador .numero {
+  font-weight: bold;
+  font-size: 3rem;
+  letter-spacing: -1px;
+  line-height: 1;
+}
+.contador .dias {
+  font-size: 1.2rem;
+  margin-left: 0.5rem;
+  opacity: 0.75;
+}
+/* Estilos do bloco de inspiração */
+.bloco-inspiracao blockquote {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 1.2rem;
+  display: inline;
+  margin: 0;
+  margin-top: 1rem;
+}
+.bloco-inspiracao footer {
+  font-size: 0.85rem;
+  font-style: normal;
+  color: rgba(247, 231, 205, 0.55);
+  text-align: right;
+  opacity: 1;
+}
+
+/* ==========================================================================
+   COMPONENTE DUA (INSPIRAÇÃO)
+   ========================================================================== */
+.dua-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.navegar-dua {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: rgba(247, 231, 205, 0.6);
+  transition: transform 0.2s;
+}
+.navegar-dua:hover {
+  transform: scale(1.2);
+}
+.conteudo-dua {
+  text-align: center;
+  flex: 1;
+}
+.conteudo-dua .arabe {
+  font-size: 1.4rem;
+  font-family: 'Scheherazade New', serif;
+  direction: rtl;
+  color: var(--bg-principal);
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+.conteudo-dua .transliteracao {
+  font-style: italic;
+  font-size: 0.9rem;
+  color: rgba(247, 231, 205, 0.6);
+  margin-bottom: 0.2rem;
+}
+.conteudo-dua .traducao {
+  font-size: 1rem;
+  color: rgba(247, 231, 205, 0.8);
+}
+
+/* ==========================================================================
+   PAINEL PRINCIPAL DE ESTATÍSTICAS
+   ========================================================================== */
+.blocos-principais {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+.bloco {
+  padding: 1.2rem 1rem;
+  border-radius: 14px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(160deg, #fdf6e8 0%, #ede1c4 100%);
+  border: 1px solid rgba(50, 40, 27, 0.18);
+  box-shadow:
+    0 3px 12px rgba(50, 40, 27, 0.08),
+    inset 0 1px 0 rgba(255,255,255,0.6);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.bloco:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 8px 20px rgba(50, 40, 27, 0.13),
+    inset 0 1px 0 rgba(255,255,255,0.6);
+}
+.bloco h4 {
+  font-size: 1.3rem;
+  font-weight: normal;
+  font-style: italic;
+  margin-bottom: 0.35rem;
+  text-align: center;
+  opacity: 0.7;
+  letter-spacing: 0.3px;
+  text-transform: none;
+}
+.bloco strong {
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: 'IM Fell English', serif;
+  text-align: center;
+  letter-spacing: -0.5px;
+  color: var(--marrom-principal);
+}
+#melhor-prova,
+#pior-prova {
+  display: block;
+  width: 100%;
+  font-size: 1.5rem;
+  letter-spacing: 0;
+  word-break: break-word;
+  text-align: center;
+}
+#ultima-evocacao {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-align: center;
+  word-break: break-word;
+}
+
+/* ==========================================================================
+   PAINEL DE TEMAS CURADOS (SIDEBAR PERMANENTE)
+   ========================================================================== */
+#painel-temas-curados {
+  width: 100%;
+  background: #f7e7cd;
+  border: 1px solid rgba(131,107,81,0.3);
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(50,40,27,0.08);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+#painel-temas-curados.ativo { right: auto; }
+
+.painel-titulo {
+  font-family: 'Almendra', serif;
+  font-weight: 700;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #836b51;
+  margin: 0;
+  padding: 0.75rem 0.9rem 0.5rem;
+  border-bottom: 1px solid rgba(131,107,81,0.2);
+}
+
+.novo-tema-wrapper {
+  padding: 0.55rem 0.7rem;
+  border-bottom: 1px solid rgba(131,107,81,0.15);
+  background: rgba(50,40,27,0.03);
+}
+.novo-tema-campo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+#novo-tema {
+  width: 100%;
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(131,107,81,0.3);
+  border-radius: 7px;
+  padding: 0.4rem 2.2rem 0.4rem 0.65rem;
+  font-family: 'IM Fell English', serif;
+  font-size: 0.88rem;
+  color: #32281b;
+  box-sizing: border-box;
+}
+#novo-tema:focus {
+  outline: none;
+  border-color: #c7a877;
+  background: rgba(255,255,255,0.85);
+}
+#novo-tema::placeholder {
+  color: #9a8060;
+  font-style: italic;
+}
+#painel-temas-curados .botao-add {
+  position: absolute;
+  right: 0.35rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 0;
+  width: 22px;
+  height: 22px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  color: #836b51;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s;
+}
+#painel-temas-curados .botao-add:hover { color: #32281b; }
+
+#lista-edicao-temas {
+  list-style: none;
+  padding: 0.35rem 0;
+  margin: 0;
+}
+#lista-edicao-temas li {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.38rem 0.75rem;
+  font-size: 0.88rem;
+  font-family: 'IM Fell English', serif;
+  color: #32281b;
+  transition: background 0.12s;
+  cursor: default;
+}
+#lista-edicao-temas li:hover { background: rgba(50,40,27,0.06); }
+#lista-edicao-temas li .rotulo {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#lista-edicao-temas li .rotulo::before {
+  content: "· ";
+  color: #c7a877;
+}
+#lista-edicao-temas li button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: transparent;
+  font-size: 0.75rem;
+  line-height: 1;
+  padding: 0;
+  flex-shrink: 0;
+  transition: color 0.12s;
+}
+#lista-edicao-temas li:hover button { color: rgba(163,44,44,0.6); }
+#lista-edicao-temas li button:hover { color: #c0392b !important; }
+
+#lista-edicao-temas li.tema-registrado {
+  color: #9a8468;
+}
+#lista-edicao-temas li.tema-registrado .tema {
+  text-decoration: line-through;
+  text-decoration-color: rgba(131,107,81,0.5);
+}
+#lista-edicao-temas li.tema-aura-urgente    { border-left: 2px solid var(--aura-urgente);    padding-left: 0.35rem; }
+#lista-edicao-temas li.tema-aura-instavel   { border-left: 2px solid var(--aura-instavel);   padding-left: 0.35rem; }
+#lista-edicao-temas li.tema-aura-estavel    { border-left: 2px solid var(--aura-estavel);    padding-left: 0.35rem; }
+#lista-edicao-temas li.tema-aura-consolidada { border-left: 2px solid var(--aura-consolidada); padding-left: 0.35rem; }
+
+/* ==========================================================================
+   SISTEMA DE LOGS DE REVISÕES
+   ========================================================================== */
+/* Layout heatmap + evocações lado a lado */
+.layout-progresso {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 2.5rem;
+  align-items: start;
+  margin-top: 1.2rem;
+}
+
+#log-section {
+  position: relative;
+  padding-left: 1.5rem;
+}
+#log-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(50,40,27,0.2), transparent);
+}
+#log-section .titulo-decorativo {
+  text-align: left;
+}
+#log-revisoes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+#log-revisoes:empty::before {
+  content: 'Nenhuma evocação recente…';
+  display: block;
+  text-align: center;
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  color: #8a7a63;
+  padding: 1.5rem 0;
+  opacity: 0.7;
+}
+
+/* Entradas do log */
+.log-entry {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding: 0.3rem 0;
+  border-left: none;
+  font-family: 'IM Fell English', serif;
+  font-size: 0.92rem;
+  color: #32281b;
+}
+.log-entry + .log-entry {
+  border-top: 1px solid rgba(50,40,27,0.07);
+}
+.log-symbol {
+  font-style: normal;
+  font-size: 0.6rem;
+  flex-shrink: 0;
+  opacity: 0.5;
+}
+.log-entry--consolidada .log-symbol { color: var(--aura-consolidada); }
+.log-entry--estavel     .log-symbol { color: var(--aura-estavel); }
+.log-entry--instavel    .log-symbol { color: var(--aura-instavel); }
+.log-entry--urgente     .log-symbol { color: var(--aura-urgente); }
+.log-info {
+  flex: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+.log-tema {
+  font-weight: 600;
+  color: var(--marrom-principal);
+}
+.log-data {
+  font-size: 0.78rem;
+  color: #9a8a72;
+  font-style: italic;
+}
+.log-badge {
+  font-size: 0.72rem;
+  padding: 0.05rem 0.45rem;
+  border-radius: 10px;
+  font-style: normal;
+  flex-shrink: 0;
+  text-transform: lowercase;
+  opacity: 0.85;
+}
+.log-badge--consolidada {
+  background: rgba(152,151,26,0.15);
+  color: #5a5a0a;
+}
+.log-badge--estavel {
+  background: rgba(215,153,33,0.18);
+  color: #6b5010;
+}
+.log-badge--instavel {
+  background: rgba(214,93,14,0.15);
+  color: #7a3008;
+}
+.log-badge--urgente {
+  background: rgba(204,36,29,0.15);
+  color: #7a0808;
+}
+
+/* ==========================================================================
+   HEATMAP DE REVISÕES
+   ========================================================================== */
+#heatmap {
+  margin-bottom: 0;
+}
+#heatmap h3 {
+  margin-top: 0;
+  text-align: left;
+}
+/* Última prova — resumo em Fragmentos do Saber */
+#ultima-prova-resumo {
+  margin-bottom: 0.6rem;
+}
+.ultima-prova-badge {
+  display: inline-block;
+  font-family: 'IM Fell English', serif;
+  font-size: 0.82rem;
+  font-style: italic;
+  padding: 0.18rem 0.75rem;
+  border-radius: 20px;
+  letter-spacing: 0.2px;
+}
+.ultima-prova-badge--consolidada {
+  background: rgba(152,151,26,0.12);
+  color: #5a5a0a;
+  border: 1px solid rgba(152,151,26,0.3);
+}
+.ultima-prova-badge--estavel {
+  background: rgba(215,153,33,0.12);
+  color: #6b5010;
+  border: 1px solid rgba(215,153,33,0.3);
+}
+.ultima-prova-badge--instavel {
+  background: rgba(214,93,14,0.12);
+  color: #7a3008;
+  border: 1px solid rgba(214,93,14,0.3);
+}
+.ultima-prova-badge--urgente {
+  background: rgba(204,36,29,0.12);
+  color: #7a0808;
+  border: 1px solid rgba(204,36,29,0.3);
+}
+
+/* Entrada de prova no log */
+.log-entry--prova .log-symbol { color: #c7a877; }
+.log-entry--prova .log-tema { font-style: italic; }
+
+#heatmap-container {
+  display: grid;
+  grid-template-columns: repeat(30, 1fr);
+  gap: 3px;
+  direction: ltr;
+  grid-auto-flow: row;
+  margin: 1.5rem 0;
+  padding: 0.5rem 0;
+}
+.heatmap-cell {
+  aspect-ratio: 1;
+  border-radius: 6px;
+  background-color: #f6e7cd;
+  border: 1px solid var(--marrom-principal);
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+.heatmap-cell {
+  position: relative;
+}
+.heatmap-cell:hover {
+  transform: scale(1.1);
+  z-index: 10;
+}
+.heatmap-cell[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #32281B;
+  color: #f6e7cd;
+  padding: 5px 9px;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-family: 'IM Fell English', serif;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+  z-index: 100;
+}
+.heatmap-cell[data-tooltip]::before {
+  content: "";
+  position: absolute;
+  bottom: calc(100% + 2px);
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: #32281B;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+  z-index: 100;
+}
+.heatmap-cell[data-tooltip]:hover::after,
+.heatmap-cell[data-tooltip]:hover::before {
+  opacity: 1;
+}
+.questoes-0   { background-color: var(--heatmap-0); } 
+.questoes-1   { background-color: var(--heatmap-1); }
+.questoes-2   { background-color: var(--heatmap-2); }
+.questoes-3   { background-color: var(--heatmap-3); }
+.questoes-4   { background-color: var(--heatmap-4); }
+#heatmap-legend {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  font-family: 'IM Fell English', serif;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+.heatmap-legenda-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.heatmap-legenda-box {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 1px solid var(--marrom-principal);
+}
+
+/* ==========================================================================
+   BOTÃO DE SAIR
+   ========================================================================== */
+.botao-sair {
+  padding: 0.4rem 0.9rem;
+  background: transparent;
+  border: 1px solid rgba(247, 231, 205, 0.25);
+  border-radius: 8px;
+  font-family: 'IM Fell English', serif;
+  font-size: 0.95rem;
+  color: var(--bg-principal);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  letter-spacing: 0.3px;
+}
+.botao-sair:hover {
+  background: rgba(247, 231, 205, 0.1);
+  border-color: rgba(247, 231, 205, 0.45);
+}

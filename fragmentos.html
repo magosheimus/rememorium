@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="./assets/logo.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rememorium: Fragmentos</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English&family=Almendra:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+  <link rel="stylesheet" href="./css/style-base.css">
+  <link rel="stylesheet" href="./css/style-layout.css">
+  <link rel="stylesheet" href="./css/style-forms.css">
+  <link rel="stylesheet" href="./css/style-tables.css">
+  <link rel="stylesheet" href="./css/style-components.css">
+  <link rel="stylesheet" href="./css/style-modals.css">
+  <link rel="stylesheet" href="./css/style-responsive.css">
+</head>
+<body>
+  <nav>
+    <a href="home.html" class="nav-brand">
+      <img src="assets/logo.png" class="nav-logo-img" alt="Logo Rememorium"/>
+      <span class="nav-title">Re:memorium</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="fragmentos.html" class="nav-ativo">Fragmentos</a></li>
+      <li><a href="provas.html">Provas</a></li>
+    </ul>
+    <button class="btn-logout" onclick="logout()">↩ Sair</button>
+  </nav>
+
+  <div class="layout-fragmentos">
+
+    <!-- Conteúdo principal -->
+    <main>
+      <header>
+        <h2 class="titulo-fragmentos">Fragmentos do Saber</h2>
+        <h3 class="subtitulo-fragmentos">
+          Total: <span id="contador-fragmentos">0</span> fragmentos registrados
+        </h3>
+      </header>
+
+      <!-- Métricas de Fragmentos -->
+      <section id="metricas-fragmentos">
+        <h3 class="titulo-decorativo">Registro da Memória</h3>
+        <div class="blocos-principais">
+          <div class="bloco">
+            <h4>Total de Fragmentos</h4>
+            <strong id="total-fragmentos-metrica">0</strong>
+          </div>
+          <div class="bloco">
+            <h4>Urgentes</h4>
+            <strong id="urgentes-fragmentos">0</strong>
+          </div>
+          <div class="bloco">
+            <h4>Eco Médio Final</h4>
+            <strong id="eco-medio-fragmentos">—</strong>
+          </div>
+          <div class="bloco">
+            <h4>Consolidados</h4>
+            <strong id="consolidados-fragmentos">0</strong>
+          </div>
+        </div>
+      </section>
+
+      <section id="novo-fragmento">
+        <form id="form-fragmento" class="form-fragmento">
+          <div class="form-cabecalho">
+            <h2 class="subtitulo-formulario">Novo Fragmento</h2>
+          </div>
+
+          <div class="form-linha">
+            <div class="form-campo form-campo--tema">
+              <label class="form-label">Tema <span class="campo-info" data-tooltip="O assunto estudado ou revisado nesta sessão.">ⓘ</span></label>
+              <div class="tema-wrapper">
+                <input id="tema-input" type="text" placeholder="Assunto estudado" autocomplete="off"/>
+                <div class="ac-dropdown"></div>
+              </div>
+            </div>
+
+            <div class="form-campo">
+              <label class="form-label">Data <span class="campo-info" data-tooltip="Quando realizou esta revisão ou estudo.">ⓘ</span></label>
+              <input id="data-input" type="text" name="data" placeholder="DD/MM/AAAA" autocomplete="off" required/>
+            </div>
+
+            <div class="form-campo">
+              <label class="form-label">Confiança <span class="campo-info" data-tooltip="O quanto o tema está fixo na memória. Calibra a frequência das revisões futuras.">ⓘ</span></label>
+              <div class="select-wrapper">
+                <div class="select-custom" id="select-confianca">
+                  <span class="selected-option">Selecionar</span>
+                  <div class="arrow"></div>
+                  <ul class="select-options">
+                    <li data-value="Baixa">Baixa</li>
+                    <li data-value="Média">Média</li>
+                    <li data-value="Alta">Alta</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-linha">
+            <div class="form-campo">
+              <label class="form-label">Eco Inicial <span class="campo-info" data-tooltip="Desempenho antes de revisar — tente lembrar de memória ou resolva questões rápidas. Ex: 7/10">ⓘ</span></label>
+              <input type="text" name="ecoInicial" placeholder="ex: 7/10" autocomplete="off"/>
+            </div>
+
+            <div class="form-campo">
+              <label class="form-label">Eco Final <span class="campo-info" data-tooltip="Desempenho após reforçar o conteúdo — videoaula, caderno ou bloco de questões. Ex: 8/12">ⓘ</span></label>
+              <input type="text" name="ecoFinal" placeholder="ex: 8/12" autocomplete="off"/>
+            </div>
+
+            <div class="form-campo form-campo--hashtag">
+              <label class="form-label">Hashtags <span class="campo-info" data-tooltip="Palavras-chave para organizar e filtrar fragmentos. Ex: #cirurgia #clinica">ⓘ</span></label>
+              <input type="text" name="hashtag" placeholder="#cirurgia #clinica" />
+            </div>
+
+            <button type="submit" class="btn-adicionar">✧</button>
+          </div>
+        </form>
+      </section>
+
+      <section id="fragmentos">
+        <h3 class="titulo-decorativo">Todos os Fragmentos</h3>
+        <div class="filtros">
+          <div class="filtro-input-wrapper">
+            <input type="text" id="filtro-fragmento" placeholder="Pesquisar tema, hashtag ou aura..." />
+            <button id="limpar-filtro" title="Limpar filtro" style="display:none">✕</button>
+          </div>
+          <button id="filtrar-urgentes" title="Filtrar Urgentes">
+            <span class="rotulo-pequeno">filtrar urgentes</span>
+          </button>
+          <button id="exportar-csv" title="Exportar fragmentos em CSV">
+            <span class="rotulo-pequeno">exportar CSV</span>
+          </button>
+          <span id="contador-resultado" class="contador-resultado"></span>
+        </div>
+        <div class="tabela-frame">
+          <table id="fragmentos-table">
+            <colgroup>
+              <col style="width:42px">
+              <col>
+              <col>
+              <col>
+              <col>
+              <col>
+              <col>
+              <col>
+            </colgroup>
+            <thead>
+              <tr>
+                <th>Editar</th>
+                <th>Tema</th>
+                <th>Última Revisão</th>
+                <th>Eco Inicial</th>
+                <th>Eco Final</th>
+                <th>Confiança</th>
+                <th>Revisões</th>
+                <th class="col-hashtags">Hashtags</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <div id="controles-paginacao" class="paginacao">
+        <span id="paginacao-anterior">←</span>
+        <span id="pagina-atual">1</span>
+        <span id="paginacao-proximo">→</span>
+        <select id="itens-por-pagina">
+          <option value="10">10</option>
+          <option value="20" selected>20</option>
+          <option value="30">30</option>
+        </select>
+        <span id="total-paginas" class="total-paginas">/ ?</span>
+      </div>
+    </main>
+
+    <!-- Sidebar direita -->
+    <div class="sidebar-wrapper" id="sidebar-wrapper">
+      <button class="sidebar-toggle" id="sidebar-toggle" title="Recolher painel">‹</button>
+
+      <aside class="sidebar-temas" id="sidebar-temas">
+        <div class="sidebar-conteudo">
+          <!-- Lista de temas curados -->
+          <div id="painel-temas-curados">
+            <h3 class="painel-titulo">Lista de Temas</h3>
+            <form id="form-tema" class="novo-tema-wrapper" onsubmit="adicionarTema(event)">
+              <div class="novo-tema-campo">
+                <input id="novo-tema" placeholder="Adicionar tema…" autocomplete="off" />
+                <button type="submit" class="botao-add" title="Adicionar">✦</button>
+              </div>
+            </form>
+            <ul id="lista-edicao-temas"></ul>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+  <script type="module">
+    import { inicializarDatePicker } from './js/modules/ui.js';
+    import { logout } from './js/modules/auth.js';
+    import './js/main.js';
+
+    window.logout = logout;
+
+    const dataInput = document.getElementById('data-input');
+    if (dataInput) inicializarDatePicker(dataInput);
+
+    const sidebar = document.getElementById('sidebar-temas');
+    const toggleBtn = document.getElementById('sidebar-toggle');
+    const layoutEl = document.querySelector('.layout-fragmentos');
+    const STORAGE_KEY = 'sidebar-recolhida';
+
+    function aplicarEstado(recolhida, animar = false) {
+      if (!animar) sidebar.classList.add('sem-transicao');
+      sidebar.classList.toggle('recolhida', recolhida);
+      layoutEl?.classList.toggle('sidebar-recolhida', recolhida);
+      toggleBtn.textContent = recolhida ? '›' : '‹';
+      toggleBtn.title = recolhida ? 'Expandir painel' : 'Recolher painel';
+      if (!animar) requestAnimationFrame(() => sidebar.classList.remove('sem-transicao'));
+    }
+
+    aplicarEstado(localStorage.getItem(STORAGE_KEY) === '1', false);
+
+    toggleBtn.addEventListener('click', () => {
+      const recolhida = !sidebar.classList.contains('recolhida');
+      localStorage.setItem(STORAGE_KEY, recolhida ? '1' : '0');
+      aplicarEstado(recolhida, true);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,742 @@
+/* ==========================================================================
+   ARQUIVO: style-tables.css
+   DESCRIÇÃO: Estilos para tabelas, filtros, paginação e elementos tabulares
+   ========================================================================== */
+
+/* ==========================================================================
+   TABELA DE FRAGMENTOS - ESTRUTURA PRINCIPAL
+   ========================================================================== */
+#fragmentos {
+  margin-top: 1.5rem;
+  width: 100%;
+}
+/* Container da tabela com scroll */
+.tabela-frame {
+  border-radius: 14px;
+  background-color: #f6e7cd;
+  border: 1px solid rgba(50, 40, 27, 0.35);
+  box-shadow:
+    0 6px 20px rgba(50, 40, 27, 0.1),
+    0 1px 4px rgba(50, 40, 27, 0.06),
+    inset 0 1px 0 rgba(255,255,255,0.5);
+  overflow-x: auto;
+}
+/* Tabela principal */
+#fragmentos-table,
+#provas-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'IM Fell English', serif;
+  table-layout: auto;
+  border: none;
+}
+/* Zebra striping nas linhas de dados */
+#fragmentos-table tbody tr:nth-child(4n+3):not(.linha-historico) td:not([class*="aura-"]),
+#fragmentos-table tbody tr:nth-child(4n+4):not(.linha-historico) td:not([class*="aura-"]),
+#provas-table tbody tr:nth-child(4n+3) td:not([class*="aura-"]),
+#provas-table tbody tr:nth-child(4n+4) td:not([class*="aura-"]) {
+  background-color: rgba(50, 40, 27, 0.03);
+}
+
+/* Cabeçalho da tabela */
+#fragmentos-table thead th,
+#provas-table thead th {
+  background: linear-gradient(135deg, #3d3022 0%, #32281b 100%);
+  color: #f6e7cd;
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: 0.5px;
+  text-align: center;
+  padding: 12px 8px;
+  border: 1px solid #836b51;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+  border-top: none;
+}
+/* Células da tabela */
+#fragmentos-table td,
+#provas-table td {
+  padding: .52rem .8rem;
+  color: #32281b;
+  text-align: center;
+  font-size: 1.08rem;
+  transition: background-color 0.15s ease;
+  border: 1px solid rgba(101, 77, 51, 0.70);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+  line-height: 1.3;
+}
+
+/* ==========================================================================
+   COLUNA DE HASHTAGS
+   ========================================================================== */
+#fragmentos-table td:nth-child(8),
+#provas-table td:nth-child(7) {
+  text-align: left;
+  white-space: normal;
+  vertical-align: top;
+  padding: 0.5rem;
+}
+.hashtags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3rem .4rem;
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-height: 0rem;
+  max-height: 4.5rem;
+  overflow-y: auto;
+  padding: 0rem;
+}
+.hashtags-container:empty { display: none; }
+#fragmentos-table td.hashtags {
+  padding: .42rem .8rem;
+  vertical-align: middle;
+  text-align: left;
+}
+.hashtags-inner {
+  display: flex;
+  align-items: center;
+  column-gap: .4rem;
+}
+.hashtags-inner .hashtags-container { flex: 1; }
+.hashtags-inner .botao-excluir { margin-left: auto; flex-shrink: 0; }
+.hashtags-container span {
+  display: inline-block;
+  background: rgba(217, 184, 140, 0.2);
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  margin: 0.1rem 0;
+  font-size: 0.8rem;
+  color: #6b5d3f;
+}
+.hashtag-clicavel {
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.hashtag-clicavel:hover {
+  background: rgba(199, 168, 119, 0.45) !important;
+  color: #32281b !important;
+}
+#fragmentos-table thead th.col-hashtags {
+  text-align: center;
+  white-space: nowrap;
+  line-height: 1.15;
+  vertical-align: middle;
+}
+
+/* ==========================================================================
+   BOTÕES DE AÇÃO
+   ========================================================================== */
+.botao-excluir {
+  background: rgba(139, 69, 53, 0.2);
+  border: 1px solid rgba(139, 69, 53, 0.4);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-left: .25rem;
+  color: #8b4535;
+}
+.botao-excluir:hover { background: rgba(139, 69, 53, 0.3); }
+.botao-excluir.tabela {
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-left: auto;
+  font-size: 0.8rem;
+  color: #8b4535;
+  transition: all 0.25s ease;
+}
+.botao-excluir.tabela:hover {
+  background: rgba(139, 69, 53, 0.08);
+  color: #a83232;
+  transform: scale(1.1) rotate(4deg);
+  box-shadow: 0 0 4px rgba(139, 69, 53, 0.25);
+}
+.botao-excluir.tabela:active {
+  transform: scale(0.95);
+  box-shadow: none;
+}
+
+/* ==========================================================================
+   BORDAS E AJUSTES
+   ========================================================================== */
+#fragmentos-table thead th:first-child,
+#fragmentos-table tbody td:first-child,
+#provas-table thead th:first-child,
+#provas-table tbody td:first-child { border-left: none; }
+#fragmentos-table thead th:last-child,
+#fragmentos-table tbody td:last-child,
+#provas-table thead th:last-child,
+#provas-table tbody td:last-child { border-right: none; }
+#fragmentos-table tbody tr:last-child td,
+#provas-table tbody tr:last-child td { border-bottom: none; }
+#fragmentos-table td:nth-child(6) {
+  font-style: italic;
+  font-weight: 500;
+}
+#fragmentos-table td:nth-child(7) {
+  font-weight: 600;
+  color: #5d4c33;
+}
+/* Coluna % em negrito na tabela de provas */
+#provas-table td:nth-child(5) strong { font-size: 1.08rem; }
+/* Acertos/Total sem quebra de linha */
+#provas-table td:nth-child(4),
+#provas-table th:nth-child(4) { white-space: nowrap; }
+
+/* ==========================================================================
+   SCROLLBARS
+   ========================================================================== */
+.hashtags-container::-webkit-scrollbar { width: 4px; }
+.hashtags-container::-webkit-scrollbar-thumb {
+  background: rgba(139, 90, 43, 0.3);
+  border-radius: 2px;
+}
+.tabela-frame::-webkit-scrollbar { width: 8px; height: 8px; }
+.tabela-frame::-webkit-scrollbar-thumb {
+  background: rgba(50, 40, 27, 0.4);
+  border-radius: 8px;
+  border: 2px solid #f6e7cd;
+  background-clip: padding-box;
+}
+.tabela-frame::-webkit-scrollbar-thumb:hover {
+  background: rgba(50, 40, 27, 0.6);
+}
+
+/* ==========================================================================
+   SISTEMA DE AURA / STATUS
+   ========================================================================== */
+td.aura-urgente     { background-color: rgba(204,36,29,0.70); }
+td.aura-instavel    { background-color: rgba(214,93,14,0.70); }
+td.aura-estavel     { background-color: rgba(215,153,33,0.68); }
+td.aura-consolidada { background-color: rgba(152,151,26,0.60); }
+td.aura-urgente,
+td.aura-instavel,
+td.aura-estavel,
+td.aura-consolidada {
+  color: #2a1f0f !important;
+  font-size: 1.08rem;
+  letter-spacing: 0.1px;
+  cursor: pointer;
+  user-select: none;
+}
+/* Hover */
+tbody tr[data-status="consolidada"]:hover td { background-color: rgba(152,151,26,0.10); }
+tbody tr[data-status="estavel"]:hover td     { background-color: rgba(215,153,33,0.10); }
+tbody tr[data-status="instavel"]:hover td    { background-color: rgba(214,93,14,0.10); }
+tbody tr[data-status="urgente"]:hover td     { background-color: rgba(204,36,29,0.10); }
+tbody tr[data-status="consolidada"]:hover td.aura-consolidada { background-color: var(--aura-consolidada); }
+tbody tr[data-status="estavel"]:hover td.aura-estavel         { background-color: var(--aura-estavel); }
+tbody tr[data-status="instavel"]:hover td.aura-instavel       { background-color: var(--aura-instavel); }
+tbody tr[data-status="urgente"]:hover td.aura-urgente         { background-color: var(--aura-urgente); }
+
+/* ==========================================================================
+   INDICADOR DE CONFIANÇA + TOOLTIP
+   ========================================================================== */
+.indicador {
+  display: inline-block;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  margin-right: 6px;
+  cursor: default;
+}
+.indicador-baixa  { background-color: var(--aura-urgente); }
+.indicador-média  { background-color: var(--aura-instavel); }
+.indicador-alta   { background-color: var(--aura-consolidada); }
+td { position: relative; overflow: visible !important; }
+/* Tooltip */
+.indicador::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 125%; left: 50%;
+  transform: translateX(-50%);
+  background: #32281B;
+  color: #f6e7cd;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-family: 'IM Fell English', serif;
+  white-space: nowrap;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 1000;
+}
+.indicador::before {
+  content: "";
+  position: absolute;
+  bottom: 115%; left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #32281B;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 1000;
+}
+.indicador:hover::after,
+.indicador:hover::before { opacity: 1; }
+.conf-wrapper { display: flex; align-items: center; gap: 10px; }
+.conf-wrapper .indicador { margin: 0; flex: 0 0 14px; }
+.conf-label { line-height: 1; }
+#fragmentos-table td:nth-child(6) {
+  text-align: left;
+  padding-left: 18px;
+  font-style: italic;
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   HISTÓRICO E AÇÕES
+   ========================================================================== */
+.dados-ciclo {
+  display: flex; flex-wrap: wrap;
+  align-items: center;
+  gap: 4rem;
+  padding-left: 4rem;
+  color: var(--bg-principal);
+}
+.dados-ciclo span {
+  background-color: #e1d3ba;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.03);
+  color: #32281b;
+  display: flex; align-items: center;
+  gap: 0.3rem;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+.dados-ciclo strong { font-style: italic; font-size: 1rem; }
+/* Linha de histórico */
+.linha-historico td {
+  background: var(--marrom-principal);
+  border-top: 1px dashed #d9b88c;
+  font-family: 'IM Fell English', serif;
+  font-size: 0.95rem;
+  color: #f6e7cd;
+}
+.lista-historico {
+  list-style: none;
+  margin: 0; padding: 0;
+  display: flex; flex-direction: column;
+  border-left: 2px solid #d9b88c;
+  margin-left: 0.5rem;
+}
+.lista-historico li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.3rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+.lista-historico li:hover { background: #483a27; }
+.lista-historico li + li {
+  border-top: 1px dashed #e6d0ac;
+  margin-top: 0.3rem;
+  padding-top: 0.5rem;
+}
+/* Linhas clicáveis para expandir histórico */
+#fragmentos-table tbody tr:not(.linha-historico):not(.linha-editar) {
+  cursor: pointer;
+}
+#provas-table tbody tr { cursor: default; }
+#fragmentos-table tbody tr.expandido td {
+  background-color: rgba(50, 40, 27, 0.05) !important;
+}
+#fragmentos-table tbody tr.expandido td.aura-consolidada { background-color: var(--aura-consolidada) !important; }
+#fragmentos-table tbody tr.expandido td.aura-estavel     { background-color: var(--aura-estavel) !important; }
+#fragmentos-table tbody tr.expandido td.aura-instavel    { background-color: var(--aura-instavel) !important; }
+#fragmentos-table tbody tr.expandido td.aura-urgente     { background-color: var(--aura-urgente) !important; }
+
+/* Botão editar fragmento (lápis SVG) */
+td.acoes { text-align: center; vertical-align: middle; width: 2rem; }
+table[data-readonly] td.acoes,
+table[data-readonly] thead th:first-child { display: none; }
+.botao-editar-fragmento {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0.2rem;
+}
+.botao-editar-fragmento::before {
+  content: '';
+  display: block;
+  width: 15px;
+  height: 15px;
+  background-color: var(--marrom-principal);
+  -webkit-mask: url('../assets/hand-drawn-pencil-icon-vector/hand-drawn-pencil-icon.svg') center / contain no-repeat;
+  mask: url('../assets/hand-drawn-pencil-icon-vector/hand-drawn-pencil-icon.svg') center / contain no-repeat;
+  transform: scaleX(-1);
+}
+
+/* Modo de edição inline */
+tr.modo-edicao td {
+  background: rgba(240, 220, 175, 0.45) !important;
+  box-shadow: inset 0 -1px 0 rgba(131,107,81,0.15), inset 0 1px 0 rgba(131,107,81,0.15);
+  cursor: default;
+}
+
+.inline-input {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--marrom-principal);
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid rgba(131, 107, 81, 0.4);
+  border-radius: 0;
+  padding: 0.15rem 0.25rem;
+  outline: none;
+  width: 100%;
+  text-align: center;
+  transition: border-color 0.15s, background 0.15s;
+}
+.inline-input:focus {
+  border-bottom-color: var(--marrom-principal);
+  background: rgba(255, 248, 237, 0.6);
+}
+
+/* Remove setas dos inputs numéricos */
+.inline-input--num { width: 52px; -moz-appearance: textfield; }
+.inline-input--num::-webkit-outer-spin-button,
+.inline-input--num::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+/* Remove ícone nativo do date em webkit */
+.inline-input[type="date"]::-webkit-calendar-picker-indicator { opacity: 0.4; cursor: pointer; }
+
+td.acoes .btn-salvar-edicao,
+td.acoes .btn-cancelar-edicao {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.15rem 0.3rem;
+  display: block;
+  width: 100%;
+  line-height: 1.6;
+  transition: transform 0.1s;
+}
+td.acoes .btn-salvar-edicao  { color: #5a7a2a; }
+td.acoes .btn-cancelar-edicao { color: #8b3a2a; }
+td.acoes .btn-salvar-edicao:hover  { color: #3a5a10; transform: scale(1.2); }
+td.acoes .btn-cancelar-edicao:hover { color: #6b1a10; transform: scale(1.2); }
+.linha-historico em {
+  font-weight: 500;
+  display: flex; justify-content: center;
+  color: var(--bg-principal);
+  letter-spacing: 1px;
+}
+.tabela-frame td:last-child,
+.tabela-frame td:nth-child(7),
+.tabela-frame td:nth-child(6),
+.tabela-frame td:nth-child(5),
+.tabela-frame td:nth-child(4),
+.tabela-frame td:nth-child(3),
+.tabela-frame td:nth-child(2),
+.tabela-frame td:first-child { border-bottom: none !important; }
+/* Botão refazer prova */
+.botao-refazer {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--marrom-principal);
+  padding: 0.1rem;
+  line-height: 1;
+  opacity: 0.55;
+  transition: opacity 0.15s, color 0.15s;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+.botao-refazer:hover { opacity: 1; color: var(--destaque-medio); }
+
+/* Tabela de evolução de tentativas (historico de provas) */
+.historico-provas-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'IM Fell English', serif;
+  font-size: 0.88rem;
+  margin: 0.2rem 0;
+}
+.historico-provas-table thead th {
+  color: #6b5438;
+  font-style: italic;
+  font-weight: 400;
+  text-align: center;
+  padding: 0.2rem 0.5rem;
+  border-bottom: 1px solid rgba(131,107,81,0.3);
+}
+.historico-provas-table tbody td {
+  text-align: center;
+  padding: 0.25rem 0.5rem;
+  color: #32281b;
+  border-bottom: 1px solid rgba(131,107,81,0.08);
+}
+.delta-positivo { color: #4a7a20; font-weight: 600; }
+.delta-negativo { color: #8b3a2a; font-weight: 600; }
+
+/* Botão apagar ciclo */
+.botao-apagar-ciclo {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  color: var(--destaque-escuro);
+  cursor: pointer;
+  margin-left: auto;
+  padding: 0.2rem;
+  border-radius: 50%;
+  transition: background 0.2s ease;
+}
+.botao-apagar-ciclo:hover {
+  background-color: rgba(217, 184, 140, 0.2);
+  color: #a04848;
+}
+/* Spinner */
+.spinner {
+  display: inline-block;
+  width: 24px; height: 24px;
+  border: 3px solid #ccc;
+  border-top-color: #32281B;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ==========================================================================
+   SISTEMA DE FILTROS
+   ========================================================================== */
+.filtros {
+  display: flex; gap: 12px;
+  align-items: center;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, #3d3022 0%, #32281b 100%);
+  border: 1px solid rgba(217, 184, 140, 0.3);
+  border-radius: 12px;
+  margin-bottom: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+}
+.filtro-input-wrapper {
+  flex-grow: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.filtro-input-wrapper #filtro-fragmento {
+  flex-grow: 1;
+  width: 100%;
+  padding-right: 2rem;
+}
+#limpar-filtro {
+  position: absolute;
+  right: 6px;
+  background: none !important;
+  border: none !important;
+  min-width: unset !important;
+  width: 22px !important;
+  height: 22px !important;
+  padding: 0 !important;
+  color: #a58e6d !important;
+  font-size: 0.8rem !important;
+  cursor: pointer;
+  border-radius: 50% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s, background 0.15s !important;
+  box-shadow: none !important;
+}
+#limpar-filtro:hover {
+  color: #8b4535 !important;
+  background: rgba(139,69,53,0.1) !important;
+}
+#filtro-fragmento,
+#filtro-prova {
+  flex-grow: 1;
+  height: 38px;
+  padding: 0 14px;
+  border: 1px solid #d9b88c;
+  border-radius: 8px;
+  background: #f6e7cd;
+  color: #32281b;
+  font-family: 'IM Fell English', serif;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+#filtro-fragmento::placeholder,
+#filtro-prova::placeholder { color: #a58e6d; font-style: italic; }
+#filtro-fragmento:focus,
+#filtro-prova:focus {
+  outline: none;
+  border-color: #d9903d;
+  box-shadow: 0 0 0 2px rgba(217, 144, 61, 0.2);
+}
+.filtros button {
+  height: 38px;
+  min-width: 100px;
+  padding: 0 12px;
+  border: 1px solid #d9b88c;
+  border-radius: 8px;
+  background: #f6e7cd;
+  color: #32281b;
+  font-family: 'IM Fell English', serif;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center; justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.filtros button:hover {
+  background: #e6c989;
+  border-color: #c7a877;
+}
+.filtros button:active { transform: translateY(1px); }
+/* Urgentes */
+#filtrar-urgentes,
+#filtrar-urgentes-provas {
+  height: 36px; min-width: 60px;
+  padding: 0 12px;
+  border: 1px solid #d9b88c;
+  border-radius: 6px;
+  background: #e6c989;
+  color: #32281b;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+#filtrar-urgentes:hover,
+#filtrar-urgentes-provas:hover { background: #f6e7cd; }
+#filtrar-urgentes.ativo,
+#filtrar-urgentes-provas.ativo { background: #f6e7cd; }
+#filtrar-urgentes.ativo:hover,
+#filtrar-urgentes-provas.ativo:hover { background: #e6c989; }
+#filtrar-urgentes:hover::after,
+#filtrar-urgentes-provas:hover::after {
+  content: "Mostrar urgentes primeiro";
+  position: absolute;
+  top: 100%; right: 0;
+  margin-top: 8px;
+  padding: 6px 10px;
+  background: #32281b; color: #f6e7cd;
+  border: 1px solid #d9b88c;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  z-index: 1000;
+}
+#filtrar-urgentes.ativo:hover::after,
+#filtrar-urgentes-provas.ativo:hover::after { content: "Ordenar por data"; }
+.rotulo-pequeno {
+  font-size: 0.75rem;
+  letter-spacing: 0.3px;
+  text-transform: lowercase;
+  font-weight: 500;
+}
+.filtros button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(217, 184, 140, 0.3);
+}
+
+/* ==========================================================================
+   PAGINAÇÃO
+   ========================================================================== */
+.paginacao {
+  display: flex; align-items: center;
+  gap: 12px; padding: 15px 0;
+  justify-content: center;
+  font-family: 'IM Fell English', serif;
+}
+.paginacao span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #d9b88c;
+  border-radius: 6px;
+  background: #f6e7cd;
+  color: #32281b;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.paginacao span:hover {
+  background: #e6c989;
+  border-color: #c7a877;
+  transform: translateY(-1px);
+}
+.paginacao span:active {
+  transform: translateY(0);
+}
+#pagina-atual {
+  background: var(--destaque-claro);
+  color: #f6e7cd;
+  font-weight: 600;
+  cursor: default;
+}
+/* Seletor de itens por página */
+#itens-por-pagina {
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid #d9b88c;
+  border-radius: 6px;
+  background: #f6e7cd;
+  color: #32281b;
+  font-family: 'IM Fell English', serif;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-left: 8px;
+}
+#itens-por-pagina:hover {
+  background: #e6c989;
+  border-color: #c7a877;
+}
+#itens-por-pagina:focus {
+  outline: none;
+  border-color: #d9903d;
+  box-shadow: 0 0 0 2px rgba(217, 144, 61, 0.2);
+}
+#itens-por-pagina option {
+  background: #f6e7cd;
+  color: #32281b;
+  font-family: 'IM Fell English', serif;
+}
+.paginacao span.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.paginacao span.disabled:hover {
+  background: #f6e7cd;
+  transform: none;
+  border-color: #d9b88c;
+}

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="./assets/logo.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rememorium: Provas</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English&family=Almendra:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+  <link rel="stylesheet" href="./css/style-base.css">
+  <link rel="stylesheet" href="./css/style-layout.css">
+  <link rel="stylesheet" href="./css/style-forms.css">
+  <link rel="stylesheet" href="./css/style-tables.css">
+  <link rel="stylesheet" href="./css/style-components.css">
+  <link rel="stylesheet" href="./css/style-modals.css">
+  <link rel="stylesheet" href="./css/style-responsive.css">
+</head>
+<body>
+
+  <nav>
+    <a href="home.html" class="nav-brand">
+      <img src="assets/logo.png" class="nav-logo-img" alt="Logo Rememorium"/>
+      <span class="nav-title">Re:memorium</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="fragmentos.html">Fragmentos</a></li>
+      <li><a href="provas.html" class="nav-ativo">Provas</a></li>
+    </ul>
+    <button class="btn-logout" onclick="logout()">↩ Sair</button>
+  </nav>
+
+  <header>
+    <h2 class="titulo-fragmentos">Histórico de Provas</h2>
+    <h3 class="subtitulo-fragmentos">
+      Total: <span id="contador-provas">0</span> provas registradas
+    </h3>
+  </header>
+
+  <main class="layout-provas">
+
+    <!-- Métricas -->
+    <section id="metricas-provas">
+      <h3 class="titulo-decorativo">Registro da Memória</h3>
+      <div class="blocos-principais">
+        <div class="bloco">
+          <h4>Total de Provas</h4>
+          <strong id="total-provas">0</strong>
+        </div>
+        <div class="bloco">
+          <h4>Média Geral</h4>
+          <strong id="media-provas">0 %</strong>
+        </div>
+        <div class="bloco">
+          <h4>Melhor Desempenho</h4>
+          <strong id="melhor-prova">—</strong>
+        </div>
+        <div class="bloco">
+          <h4>Pior Desempenho</h4>
+          <strong id="pior-prova">—</strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- Formulário de nova prova -->
+    <section id="nova-prova">
+      <form id="form-prova" class="form-fragmento">
+        <div class="form-cabecalho">
+          <h2 class="subtitulo-formulario">Nova Prova</h2>
+        </div>
+
+        <div class="form-linha">
+          <div class="form-campo form-campo--tema">
+            <label class="form-label">Nome <span class="campo-info" data-tooltip="Nome do simulado ou exame realizado. Ex: Revalida 2024.1">ⓘ</span></label>
+            <input type="text" name="nome" placeholder="ex: Revalida 2024.1" autocomplete="off" required/>
+          </div>
+
+          <div class="form-campo">
+            <label class="form-label">Data <span class="campo-info" data-tooltip="Quando a prova foi realizada.">ⓘ</span></label>
+            <input id="data-prova-input" type="text" name="data" placeholder="DD/MM/AAAA" autocomplete="off" required/>
+          </div>
+        </div>
+
+        <div class="form-linha">
+          <div class="form-campo">
+            <label class="form-label">Acertos <span class="campo-info" data-tooltip="Número de questões respondidas corretamente.">ⓘ</span></label>
+            <input type="number" name="acertos" placeholder="ex: 72" min="0" required/>
+          </div>
+
+          <div class="form-campo">
+            <label class="form-label">Total de Questões <span class="campo-info" data-tooltip="Total de questões na prova.">ⓘ</span></label>
+            <input type="number" name="total" placeholder="ex: 120" min="1" required/>
+          </div>
+
+          <div class="form-campo form-campo--hashtag">
+            <label class="form-label">Hashtags <span class="campo-info" data-tooltip="Palavras-chave para organizar e filtrar provas. Ex: #revalida #clinica">ⓘ</span></label>
+            <input type="text" name="hashtag" placeholder="#revalida #clinica" />
+          </div>
+
+          <button type="submit" class="btn-adicionar">✧</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Tabela de provas -->
+    <section id="lista-provas">
+      <h3 class="titulo-decorativo">Todas as Provas</h3>
+      <div class="filtros">
+        <input type="text" id="filtro-prova" placeholder="Pesquisar prova..." />
+        <button id="filtrar-urgentes-provas" title="Filtrar provas para refazer">
+          <span class="rotulo-pequeno">filtrar urgentes</span>
+        </button>
+      </div>
+      <div class="tabela-frame">
+        <table id="provas-table">
+          <colgroup>
+            <col style="width:42px">
+            <col>
+            <col style="width:130px">
+            <col style="width:120px">
+            <col style="width:80px">
+            <col>
+          </colgroup>
+          <thead>
+            <tr>
+              <th>Editar</th>
+              <th>Prova</th>
+              <th>Data</th>
+              <th>Acertos / Total</th>
+              <th>%</th>
+              <th class="col-hashtags">Hashtags</th>
+            </tr>
+          </thead>
+          <tbody id="provas-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script type="module" src="./js/provas-main.js"></script>
+</body>
+</html>
