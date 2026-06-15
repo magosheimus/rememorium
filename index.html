@@ -425,7 +425,7 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import {
-      GoogleAuthProvider, signInWithRedirect, getRedirectResult, onAuthStateChanged, getAuth,
+      GoogleAuthProvider, signInWithPopup, getAuth,
       signInWithEmailAndPassword,
       createUserWithEmailAndPassword, sendPasswordResetEmail
     } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
@@ -518,46 +518,23 @@
       }
     });
 
-    /** Resultado do redirect do Google — tenta getRedirectResult, cai em onAuthStateChanged se retornar null */
-    if (localStorage.getItem('googleRedirectPending')) {
-      localStorage.removeItem('googleRedirectPending');
-
-      getRedirectResult(auth)
-        .then((result) => {
-          if (result?.user) {
-            const user = result.user;
-            localStorage.setItem("nomeUsuario", user.displayName || "Guardião(a)");
-            mostrarMensagem(`Saudações, ${user.displayName || "usuário"}. O grimório reconhece sua aura.`, "sucesso");
-            setTimeout(() => { window.location.href = "home.html"; }, 1500);
-          } else {
-            const unsubscribe = onAuthStateChanged(auth, (user) => {
-              if (user) {
-                unsubscribe();
-                localStorage.setItem("nomeUsuario", user.displayName || "Guardião(a)");
-                mostrarMensagem(`Saudações, ${user.displayName || "usuário"}. O grimório reconhece sua aura.`, "sucesso");
-                setTimeout(() => { window.location.href = "home.html"; }, 1500);
-              }
-            });
-          }
-        })
-        .catch((error) => {
-          mostrarMensagem("Erro ao finalizar login com Google", "erro");
-          console.error("Redirect result error:", error);
-        });
-    }
-
     /** Login com Google */
     document.getElementById("btn-google").addEventListener("click", async () => {
       const btn = document.getElementById("btn-google");
-      btn.innerHTML = '<span class="google-icon"></span> Redirecionando...';
+      btn.innerHTML = '<span class="google-icon"></span> Carregando...';
       btn.disabled = true;
 
       try {
-        localStorage.setItem('googleRedirectPending', 'true');
-        await signInWithRedirect(auth, provider);
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+        mostrarMensagem(`Saudações, ${user.displayName || "usuário"}. O grimório reconhece sua aura.`, "sucesso");
+        localStorage.setItem("nomeUsuario", user.displayName || "Guardião(a)");
+        setTimeout(() => { window.location.href = "home.html"; }, 1500);
       } catch (error) {
-        localStorage.removeItem('googleRedirectPending');
-        mostrarMensagem("Erro ao iniciar login com Google", "erro");
+        let mensagemErro = "Erro ao fazer login com Google";
+        if (error.code === "auth/popup-closed-by-user") mensagemErro = "Invocação cancelada — o portal foi fechado.";
+        mostrarMensagem(mensagemErro, "erro");
+      } finally {
         btn.innerHTML = '<span class="google-icon"></span> Entrar com Google';
         btn.disabled = false;
       }
