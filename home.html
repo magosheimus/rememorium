@@ -34,6 +34,7 @@
       <li><a href="fragmentos.html">Fragmentos</a></li>
       <li><a href="provas.html">Provas</a></li>
     </ul>
+    <button class="btn-tutorial" id="btn-tutorial">? Como funciona</button>
     <button class="btn-logout" onclick="logout()">↩ Sair</button>
   </nav>
 
@@ -224,9 +225,12 @@
   <script type="module">
     import { inicializarDatePicker } from './js/modules/ui.js';
     import { logout } from './js/modules/auth.js';
+    import { iniciarTutorial, iniciarTutorialSeNovo } from './js/components/tutorial.js';
     import './js/database.js';
     import './js/utils.js';
     import './js/main.js';
+
+    document.getElementById('btn-tutorial').addEventListener('click', iniciarTutorial);
 
     // ---- Carregar modal externo ----
     (async () => {
@@ -238,6 +242,8 @@
       const input = document.getElementById('dataProvaInput');
       if (input) inicializarDatePicker(input);
     })();
+
+    iniciarTutorialSeNovo();
 
     // ---- Expor função de logout para o botão no HTML ----
     window.logout = logout;

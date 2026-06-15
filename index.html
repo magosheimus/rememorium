@@ -55,8 +55,7 @@
     .login-wrapper {
       display: flex;
       width: 100%;
-      max-width: 860px;
-      min-height: 540px;
+      max-width: 900px;
       border-radius: 18px;
       overflow: hidden;
       box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(199, 168, 119, 0.15);
@@ -64,7 +63,7 @@
 
     .login-branding {
       flex: 1;
-      padding: 3rem 2.5rem;
+      padding: 2.5rem 2rem;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -77,13 +76,13 @@
     .brand-ornament {
       font-size: 1.8rem;
       opacity: 0.35;
-      margin-bottom: 1.8rem;
+      margin-bottom: 1.2rem;
       letter-spacing: 8px;
     }
 
     .brand-title {
       font-family: 'Kingthings Spike', 'IM Fell English', serif;
-      font-size: 2.8rem;
+      font-size: 3.2rem;
       font-weight: normal;
       color: #f7e7cd;
       line-height: 1.1;
@@ -93,36 +92,48 @@
 
     .brand-subtitle {
       font-family: 'IM Fell English', serif;
-      font-size: 1.05rem;
+      font-size: 1.15rem;
       font-weight: normal;
       color: rgba(247, 231, 205, 0.65);
-      margin-bottom: 2rem;
+      margin-bottom: 1.4rem;
       letter-spacing: 1.5px;
       font-style: italic;
     }
 
     .brand-tagline {
-      color: rgba(247, 231, 205, 0.45);
-      font-size: 0.9rem;
-      line-height: 1.8;
-      max-width: 220px;
+      color: rgba(247, 231, 205, 0.5);
+      font-size: 0.97rem;
+      line-height: 1.9;
+      max-width: 260px;
+      text-align: left;
+    }
+
+    .brand-tagline-item {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .brand-tagline-item span {
+      color: rgba(217, 184, 140, 0.6);
+      font-size: 0.75rem;
     }
 
     .brand-divider {
-      margin-top: 2rem;
+      margin-top: 1.4rem;
       color: rgba(247, 231, 205, 0.2);
       letter-spacing: 6px;
       font-size: 0.75rem;
     }
 
     .login-side {
-      width: 400px;
+      width: 420px;
       flex-shrink: 0;
       background: #f9f2e3;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 2.5rem 2rem;
+      padding: 2rem 1.8rem;
     }
 
     /* ==============================
@@ -165,11 +176,11 @@
        TÍTULO
        ============================== */
     h1 {
-      font-size: 1.6rem;
+      font-size: 1.85rem;
       color: var(--marrom-principal);
       text-align: center;
       font-weight: 550;
-      margin-bottom: 1rem;
+      margin-bottom: 0.9rem;
     }
 
     /* ==============================
@@ -180,16 +191,17 @@
       margin-bottom: 0.4rem;
       color: var(--marrom-principal);
       font-weight: 550;
+      font-size: 1.05rem;
     }
 
     input {
       width: 100%;
-      padding: 0.7rem 1rem;
+      padding: 0.75rem 1rem;
       border-radius: 8px;
       border: 1.5px solid #c7a877;
       background: #fffdf8;
-      font-size: 1rem;
-      margin-bottom: 1.2rem;
+      font-size: 1.05rem;
+      margin-bottom: 1rem;
     }
 
     input::placeholder {
@@ -204,7 +216,7 @@
       width: 100%;
       background: linear-gradient(135deg, #d3a876, #a96b3f);
       color: #32281b;
-      font-size: 1rem;
+      font-size: 1.05rem;
       border: none;
       border-radius: 8px;
       padding: 0.9rem;
@@ -238,7 +250,7 @@
       display: flex;
       gap: 0.8rem;
       justify-content: space-between;
-      margin-top: 1rem;
+      margin-top: 0.6rem;
     }
 
     .botoes-login button {
@@ -299,7 +311,7 @@
     .divisor {
       display: flex;
       align-items: center;
-      margin: 1rem 0;
+      margin: 0.8rem 0;
       color: #6b5d3f;
       font-size: 0.9rem;
     }
@@ -339,7 +351,7 @@
        ============================== */
     .login-footer {
       text-align: center;
-      margin-top: 3rem;
+      margin-top: 1.8rem;
       font-size: 1rem;
       color: #6b5d3f;
       font-style: italic;
@@ -364,7 +376,12 @@
       <div class="brand-ornament">✦ ✦ ✦</div>
       <h1 class="brand-title">Re:memorium</h1>
       <h2 class="brand-subtitle">Ars Medica Memorata</h2>
-      <p class="brand-tagline">Sistema de revisão espaçada para medicina.<br>Evoque. Revise. Consolide.</p>
+      <div class="brand-tagline">
+        <div class="brand-tagline-item"><span>⟡</span> Evoque antes de rever — estudo ativo que consolida de verdade</div>
+        <div class="brand-tagline-item"><span>⟡</span> Registre questões de múltipla escolha e revise nos intervalos certos</div>
+        <div class="brand-tagline-item"><span>⟡</span> Priorize os temas onde sua memória ainda vacila</div>
+        <div class="brand-tagline-item"><span>⟡</span> Acompanhe sua evolução longitudinal até o dia da prova</div>
+      </div>
       <div class="brand-divider">— ✦ —</div>
     </div>
 

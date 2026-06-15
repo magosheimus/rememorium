@@ -746,3 +746,154 @@
   background: rgba(247, 231, 205, 0.1);
   border-color: rgba(247, 231, 205, 0.45);
 }
+
+/* ==========================================================================
+   TUTORIAL GUIADO
+   ========================================================================== */
+#tut-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  transition: background 0.3s;
+  pointer-events: all;
+}
+#tut-overlay.tut-overlay-escuro   { background: rgba(0,0,0,0.75); }
+#tut-overlay.tut-overlay-spotlight { background: transparent; }
+
+#tut-spotlight {
+  position: fixed;
+  z-index: 9991;
+  border-radius: 10px;
+  box-shadow: 0 0 0 9999px rgba(0,0,0,0.72), 0 0 0 2px rgba(199,168,119,0.7), 0 0 12px 2px rgba(199,168,119,0.3);
+  pointer-events: none;
+  transition: left 0.35s ease, top 0.35s ease, width 0.35s ease, height 0.35s ease, opacity 0.2s;
+}
+#tut-spotlight.tut-spotlight--pulse {
+  animation: tut-pulse 1.4s ease-in-out infinite;
+}
+@keyframes tut-pulse {
+  0%, 100% { box-shadow: 0 0 0 9999px rgba(0,0,0,0.72), 0 0 0 2px rgba(199,168,119,0.7), 0 0 10px 2px rgba(199,168,119,0.25); }
+  50%       { box-shadow: 0 0 0 9999px rgba(0,0,0,0.72), 0 0 0 2px rgba(199,168,119,0.95), 0 0 18px 4px rgba(199,168,119,0.55); }
+}
+
+#tut-card {
+  position: fixed;
+  z-index: 9999;
+  background: #f9f2e3;
+  border: 1px solid rgba(199,168,119,0.4);
+  border-radius: 14px;
+  padding: 1.4rem 1.5rem;
+  max-width: 360px;
+  max-height: 80vh;
+  overflow-y: auto;
+  width: calc(100vw - 2rem);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.45), 0 0 0 1px rgba(199,168,119,0.1);
+  font-family: 'IM Fell English', serif;
+  color: #32281b;
+  transition: top 0.35s ease, left 0.35s ease, transform 0.35s ease;
+}
+#tut-flecha {
+  position: fixed;
+  z-index: 9998;
+  font-size: 1.6rem;
+  color: rgba(199,168,119,0.95);
+  transform: translateX(-50%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+  animation: tut-bounce 0.85s ease-in-out infinite;
+  line-height: 1;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+#tut-flecha::before { content: '↑'; }
+@keyframes tut-bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(-7px); }
+}
+.tut-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.7rem;
+}
+.tut-progresso {
+  font-size: 0.8rem;
+  color: #836b51;
+  letter-spacing: 0.3px;
+}
+.tut-skip {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #a08060;
+  font-size: 0.82rem;
+  font-family: inherit;
+  padding: 0;
+  text-decoration: underline;
+  width: auto;
+}
+.tut-skip:hover { color: #32281b; transform: none; box-shadow: none; background: none; }
+.tut-titulo {
+  margin: 0 0 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #32281b;
+  line-height: 1.3;
+}
+.tut-descricao {
+  margin: 0 0 1.2rem;
+  font-size: 0.93rem;
+  line-height: 1.75;
+  color: #4a3a28;
+}
+.tut-acoes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.6rem;
+}
+.tut-btn {
+  border-radius: 8px;
+  padding: 0.5rem 1.1rem;
+  cursor: pointer;
+  font-family: 'IM Fell English', serif;
+  font-size: 0.9rem;
+  width: auto;
+  transition: all 0.2s;
+}
+.tut-btn--back {
+  background: none;
+  border: 1px solid rgba(199,168,119,0.5);
+  color: #836b51;
+}
+.tut-btn--back:hover { background: rgba(199,168,119,0.12); transform: none; box-shadow: none; }
+.tut-btn--next {
+  background: linear-gradient(135deg, #d3a876, #a96b3f);
+  border: none;
+  color: #32281b;
+  font-weight: 600;
+}
+.tut-btn--next:hover { background: linear-gradient(135deg, #e3bc90, #ba7646); }
+
+/* Botão "Como funciona?" na nav */
+.btn-tutorial {
+  background: none;
+  border: 1px solid rgba(247,231,205,0.2);
+  border-radius: 20px;
+  color: rgba(247,231,205,0.5);
+  font-family: 'IM Fell English', serif;
+  font-size: 0.85rem;
+  padding: 0.25rem 0.85rem;
+  cursor: pointer;
+  margin-left: auto;
+  transition: all 0.2s;
+  width: auto;
+  flex-shrink: 0;
+}
+.btn-tutorial:hover {
+  background: rgba(247,231,205,0.1);
+  border-color: rgba(247,231,205,0.4);
+  color: #f6e7cd;
+  transform: none;
+  box-shadow: none;
+}
