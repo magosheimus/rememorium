@@ -426,7 +426,7 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import {
       GoogleAuthProvider, signInWithRedirect, getRedirectResult, getAuth,
-      signInWithEmailAndPassword, setPersistence, browserSessionPersistence,
+      signInWithEmailAndPassword,
       createUserWithEmailAndPassword, sendPasswordResetEmail
     } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
@@ -444,7 +444,6 @@
     // Inicialização
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
-    setPersistence(auth, browserSessionPersistence);
     const provider = new GoogleAuthProvider();
 
     /** Mostrar mensagens */
