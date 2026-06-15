@@ -425,7 +425,7 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import {
-      GoogleAuthProvider, signInWithRedirect, getRedirectResult, getAuth,
+      GoogleAuthProvider, signInWithRedirect, getRedirectResult, onAuthStateChanged, getAuth,
       signInWithEmailAndPassword,
       createUserWithEmailAndPassword, sendPasswordResetEmail
     } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
@@ -518,20 +518,33 @@
       }
     });
 
-    /** Resultado do redirect do Google (executado ao retornar do OAuth) */
-    getRedirectResult(auth)
-      .then((result) => {
-        if (result?.user) {
-          const user = result.user;
-          mostrarMensagem(`Saudações, ${user.displayName || "usuário"}. O grimório reconhece sua aura.`, "sucesso");
-          localStorage.setItem("nomeUsuario", user.displayName || "Guardião(a)");
-          setTimeout(() => { window.location.href = "home.html"; }, 1500);
-        }
-      })
-      .catch((error) => {
-        mostrarMensagem("Erro ao finalizar login com Google", "erro");
-        console.error("Redirect result error:", error);
-      });
+    /** Resultado do redirect do Google — tenta getRedirectResult, cai em onAuthStateChanged se retornar null */
+    if (localStorage.getItem('googleRedirectPending')) {
+      localStorage.removeItem('googleRedirectPending');
+
+      getRedirectResult(auth)
+        .then((result) => {
+          if (result?.user) {
+            const user = result.user;
+            localStorage.setItem("nomeUsuario", user.displayName || "Guardião(a)");
+            mostrarMensagem(`Saudações, ${user.displayName || "usuário"}. O grimório reconhece sua aura.`, "sucesso");
+            setTimeout(() => { window.location.href = "home.html"; }, 1500);
+          } else {
+            const unsubscribe = onAuthStateChanged(auth, (user) => {
+              if (user) {
+                unsubscribe();
+                localStorage.setItem("nomeUsuario", user.displayName || "Guardião(a)");
+                mostrarMensagem(`Saudações, ${user.displayName || "usuário"}. O grimório reconhece sua aura.`, "sucesso");
+                setTimeout(() => { window.location.href = "home.html"; }, 1500);
+              }
+            });
+          }
+        })
+        .catch((error) => {
+          mostrarMensagem("Erro ao finalizar login com Google", "erro");
+          console.error("Redirect result error:", error);
+        });
+    }
 
     /** Login com Google */
     document.getElementById("btn-google").addEventListener("click", async () => {
@@ -540,8 +553,10 @@
       btn.disabled = true;
 
       try {
+        localStorage.setItem('googleRedirectPending', 'true');
         await signInWithRedirect(auth, provider);
       } catch (error) {
+        localStorage.removeItem('googleRedirectPending');
         mostrarMensagem("Erro ao iniciar login com Google", "erro");
         btn.innerHTML = '<span class="google-icon"></span> Entrar com Google';
         btn.disabled = false;
