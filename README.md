@@ -34,6 +34,14 @@ Inspired by medieval grimoires and academic aesthetics, Rememorium combines func
 
 ---
 
+📸 **Screenshots**
+
+![Dashboard](assets/screenshots/dashboard.png)
+
+![Fragmentos do Saber](assets/screenshots/fragmentos.png)
+
+---
+
 📝 **Nota do Desenvolvedor**  
 Projeto pessoal em **desenvolvimento ativo**.  
 Originalmente criado para preparação ao *Revalida*, mas adaptável a qualquer área de estudo.  
